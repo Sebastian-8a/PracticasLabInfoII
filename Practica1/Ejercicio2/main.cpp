@@ -1,8 +1,19 @@
-#include <QCoreApplication>
+#include <iostream>
 
-int main(int argc, char *argv[])
-{
-    QCoreApplication a(argc, argv);
+using namespace std;
 
-    return a.exec();
+int main(){
+
+    int N = 0 ;
+
+    cout << "Ingrese un número N: ";
+            cin >> N;
+    if((N%2)!=0){
+    cout << endl << N << " Es impar";
+    }
+    else{
+    cout << endl << N << " Es par";
+    }
+
+    return 0;
 }
