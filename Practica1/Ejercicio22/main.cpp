@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int residuo(int );
+
 
 int main(){
 
@@ -13,18 +13,21 @@ int main(){
     seg = total % 60;
 
     int nuevoTotal = total - seg;
-    min = residuo(nuevoTotal);
+    if (nuevoTotal == 60){
+        min = 1;
+        cout << endl << " En " << total << " segundos hay " << seg << " seg y " << min << " minutos"        ;
+        return 0;
+    }
+    min = nuevoTotal % 60;
+    horas = nuevoTotal-min;
+    cout << endl << " En " << total << " segundos hay " << seg << " seg, " << min << " minutos y " << horas << " horas." ;
+    //if ((nuevoTotal-min)>= 60){
+
+    //}
 
 
 
     return 0;
 }
 
-int residuo(int valor){
-    if ((valor / 60 ) > 1){
-        return valor%60;
-    }
-    else{
-        return valor;
-    }
-}
+
