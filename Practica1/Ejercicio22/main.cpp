@@ -15,16 +15,14 @@ int main(){
     int nuevoTotal = total - seg;
     if (nuevoTotal == 60){
         min = 1;
-        cout << endl << " En " << total << " segundos hay " << seg << " seg y " << min << " minutos"        ;
+        cout << endl << " En " << total << " segundos hay " << min << " minutos y " << seg << " seg.";
         return 0;
     }
+    nuevoTotal /= 60;
     min = nuevoTotal % 60;
-    horas = nuevoTotal-min;
-    cout << endl << " En " << total << " segundos hay " << seg << " seg, " << min << " minutos y " << horas << " horas." ;
-    //if ((nuevoTotal-min)>= 60){
-
-    //}
-
+    horas =  nuevoTotal - min;
+    horas = horas / 60;
+    cout << endl << " En " << total << " segundos hay " << horas << " horas, " << min << " minutos y " << seg << " seg." ;
 
 
     return 0;
