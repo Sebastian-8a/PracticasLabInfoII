@@ -4,13 +4,13 @@ using namespace std;
 
 int main(){
     int N = 0;
-    double suma = 0.0;
-    int denominador = 1;
+    float suma = 0.0;
+    float denominador = 1;
     cout << "Ingrese un número para realizar la aproximación: ";
     cin >> N;
-    for (int contador = 0; contador < N ; contador += 2 ){
+    for (int contador = 0; contador < N ; contador ++ ){
 
-        if ((denominador %2)==0) {
+        if ((contador %2)==0) {
             suma += 1/denominador;
         }
         else{
