@@ -1,11 +1,13 @@
 #include <iostream>
 #include <cstdlib>
+#include<ctime>
 using namespace std;
 
 int main(){
+    unsigned seed = time(0);
+    srand(seed);
     int ingresado = -1, intentos = 0;
     int aleatorio = rand() % 101;
-    cout << aleatorio;
     /*
     while (ingresado != aleatorio){
         intentos++;
