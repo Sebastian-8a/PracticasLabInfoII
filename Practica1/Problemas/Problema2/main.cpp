@@ -2,31 +2,28 @@
 
 using namespace std;
 
-int cantidadBilletes(int, int);
-int residuo(int );
 
 int main()
 {
-    int dinero = 0;
-    int denominaciones[11] = {50000,20000,10000,5000,2000,1000,500,200,100,50,0};
+    int total = 0;
+    int residuo = 0;
+    int denominaciones[10] = {50000,20000,10000,5000,2000,1000,500,200,100,50};
     cout << "Ingrese la cantidad de dinero del cual desea conocer las denominaciones equivalentes: ";
-    cin >> dinero;
+    cin >> total;
+    cout << total << " Son: ";
+
     for (int i = 0; i <11 ; i++){
+    residuo = total % denominaciones[i];
+    total -= residuo;
+    if (i != 10){
+        cout << endl << denominaciones[i] << " : " << total / denominaciones[i];
+        total = residuo;}
+    else{
+        cout << endl << "Faltante : " << residuo ;
+    }
 
     }
 
 
     return 0;
-}
-
-int residuo(int ){
-
-
-    return 0;
-}
-
-
-
-int cantidadBilletes(int total, int denominacion){
-    return total / denominacion;
 }
