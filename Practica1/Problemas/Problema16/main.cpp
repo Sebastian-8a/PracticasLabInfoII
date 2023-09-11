@@ -9,7 +9,7 @@ int main()
 {
 
     int ingresado = 0, cantTerminos = 0, terminos2 = 0, num = 0, menor = 0;
-    int temporal[30]={};        //Al ingresar valores al arreglo se me modificaba una variable externa (Hipótesis: la posición de memoria coincidía)
+    int temporal[200]={};        //Al ingresar valores al arreglo se me modificaba una variable externa (Hipótesis: la posición de memoria coincidía)
     bool bandera = true;
 
 
@@ -28,6 +28,7 @@ int main()
             temporal[terminos2] = num;
             terminos2++;
             cantTerminos++;
+            cout <<endl<< temporal[terminos2];
         }
     }
     menor = num;
@@ -71,3 +72,11 @@ int numanterior(int num){
     }
     return num*2;
 }
+
+
+
+
+/*Algunos números generan que el programa creshee a causa que encontrar su número previo que
+sea menor puede encontrarse demasiado lejos, como el caso del 7, 21
+
+*/
