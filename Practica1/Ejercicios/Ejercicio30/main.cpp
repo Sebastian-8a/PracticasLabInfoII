@@ -11,7 +11,7 @@ int main(){
 
     while (ingresado != aleatorio){
         intentos++;
-        cout << "\n Ingrese un número: ";
+        cout << "\n Ingrese el número que desea intentar para adivinar: ";
         cin >> ingresado;
         if (ingresado < aleatorio) cout << endl << ingresado << " Es menor al número a adivinar";
                 else if (ingresado > aleatorio) cout << endl << ingresado << " Es mayor al número a adivinar";
