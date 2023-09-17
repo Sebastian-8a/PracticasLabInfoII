@@ -6,6 +6,6 @@ using namespace std;
 
 
 void   ZonaPruebas();
-
+void fun_c(double *, int, double *, double *);
 
 #endif // ZONAPRUEBAS_H
