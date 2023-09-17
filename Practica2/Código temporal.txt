@@ -54,3 +54,16 @@ double prom = 0.0, sum = 0.0;
 
 
 
+Enlace Ejercicio 4:
+https://www.tinkercad.com/things/7Bz2jyuRpPa?sharecode=L0f_9Yy5eAyIke_ncrahNz8j8cFhmD3rBCMy-2eIGVU
+
+
+Forma de probar Problema 1 Falta mostrarlo de forma que lo solicitan.
+    char arreglo[20]={};
+    int letras[26]={};
+    unsigned seed = time(0);
+    srand(seed);
+    aleatorio(arreglo, 200);
+    contar(arreglo,200,letras);
+
+
