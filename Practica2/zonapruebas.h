@@ -9,6 +9,6 @@ using namespace std;
 
 void   ZonaPruebas();
 
-int conversionCharInt(char [], int);
+
 
 #endif // ZONAPRUEBAS_H
