@@ -67,7 +67,7 @@ Enlace Ejercicio 4:
 https://www.tinkercad.com/things/7Bz2jyuRpPa?sharecode=L0f_9Yy5eAyIke_ncrahNz8j8cFhmD3rBCMy-2eIGVU
 
 
-Forma de probar Problema 1 
+Forma de probar Problema 2 
         char arreglo[200]={};
     int letras[26]={};
     char letra = '@';
@@ -84,3 +84,19 @@ Forma de probar Problema 1
     }
 
 
+
+
+
+
+
+
+
+Prueba problema 4
+    int numero = 0, cant = 0;
+    char arreglo[40]={};        //40 por poner un tamaño, pero se pone la cantidad de digitos quae tiene el número
+    cout << "Ingrese el número: ";
+    cin>> arreglo;
+    cout << "Ingrese por favor la cantidad de dígitos que tiene el número: ";
+    cin>> cant;
+    numero = conversionCharInt(arreglo,cant);
+    cout << numero;

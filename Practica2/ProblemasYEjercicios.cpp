@@ -1,5 +1,5 @@
 #include "funciones.h"
-
+//#include <string.h>
 void ejercicio2(){
     double prom = 0.0, sum = 0.0;
     double *promedio = &prom, *suma = &sum;

@@ -8,7 +8,7 @@ using namespace std;
 
 
 void   ZonaPruebas();
-
+string minusAMayus(string);
 
 
 #endif // ZONAPRUEBAS_H

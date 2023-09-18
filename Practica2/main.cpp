@@ -3,6 +3,9 @@
 #include "menu.h"
 int main()
 {
-    Menu();
+    //Menu();
+    string palabra = "hola";
+    minusAMayus(palabra);
+    cout << palabra;
     return 0;
 }
