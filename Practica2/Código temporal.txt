@@ -1,25 +1,32 @@
 int opcion = 0;
+int opcionB = 0;
+while (opcion != 3){
     cout << "1. Ejercicios. \n"
             "2. Problemas. \n"
+	    "3. Salir del programa. \n"
             "Ingrese una opción: ";
     cin >> opcion;
-
+	
     switch (opcion){
     case 1:
+	while (opcionB != 2){
         system("cls");          //Comando para limpiar pantalla perteneciente a std
         cout << "1. Ejercicio 2. \n"
-                "2. Ejercicio 4 \n"
+		"2. volver al menú inicial. \n"
                 "Ingrese una opción: ";
-        cin>> opcion;
-        switch(opcion){
+        cin>> opcionB;
+        switch(opcionB){
         case 1:
-            cout << "Opción 1";
+            ejercicio2();
                 break;
         case 2:
-            cout << "Opción 2";
+            opcion = 0;
                 break;
-        }
-
+        	}
+	default:
+		system("cls");
+        	cout << "Opción inválida. \n Vuelva a ejecutar.";
+	}
 
         break;
     case 2:
@@ -32,10 +39,12 @@ int opcion = 0;
 
 
     default:
+	system("cls");
         cout << "Opción inválida. \n Vuelva a ejecutar.";
 
     }
 
+}
 
 
 
@@ -58,12 +67,20 @@ Enlace Ejercicio 4:
 https://www.tinkercad.com/things/7Bz2jyuRpPa?sharecode=L0f_9Yy5eAyIke_ncrahNz8j8cFhmD3rBCMy-2eIGVU
 
 
-Forma de probar Problema 1 Falta mostrarlo de forma que lo solicitan.
-    char arreglo[20]={};
+Forma de probar Problema 1 
+        char arreglo[200]={};
     int letras[26]={};
+    char letra = '@';
     unsigned seed = time(0);
     srand(seed);
     aleatorio(arreglo, 200);
     contar(arreglo,200,letras);
+    for (int i = 0; i < 200; i++ ){
+        cout << arreglo[i] << " ";
+    }
+    for (int i = 0; i < 26; i++){
+        letra += 1;
+        cout << endl<< letra << ": " << letras[i];
+    }
 
 

@@ -9,6 +9,7 @@ CONFIG += c++17 cmdline
 SOURCES += \
         funciones.cpp \
         main.cpp \
+        menu.cpp \
         zonapruebas.cpp
 
 # Default rules for deployment.
@@ -18,4 +19,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     funciones.h \
+    menu.h \
     zonapruebas.h
