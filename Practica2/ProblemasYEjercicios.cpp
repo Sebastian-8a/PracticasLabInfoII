@@ -1,5 +1,7 @@
 #include "funciones.h"
-//#include <string.h>
+//
+
+
 void ejercicio2(){
     double prom = 0.0, sum = 0.0;
     double *promedio = &prom, *suma = &sum;
@@ -43,11 +45,22 @@ void problema4(){
 }
 
 void problema6(){
-
+    string palabra = "";
+    cout<< "Ingrese una cadena de caracteres: ";
+    getline(cin,palabra, '\n');             //acción, donde se almacena, hasta donde lee
+    string newPalabra = minusAMayus(palabra);
+    cout << "Original: "<< palabra<< ". En mayuscula: "<<newPalabra;
 }
 
 void problema8(){
-
+    string letras = "";
+    string ingresado = "";
+    cout << "Ingrese una cadena de caracteres: ";
+    getline(cin, ingresado, '\n');
+    int numeros = 0;
+    int  *ptrNum =&numeros;
+    letras = texto(ingresado, ptrNum);
+    cout<< "Original: "<< ingresado<< endl<< "Texto: "<< letras<< endl<< "Numero: "<< numeros;
 }
 
 void problema10(){

@@ -3,12 +3,12 @@
 #include <iostream>
 #include <cstdlib>
 #include<ctime>
+#include <string.h>
 
 using namespace std;
 
 
-void   ZonaPruebas();
-string minusAMayus(string);
+
 
 
 #endif // ZONAPRUEBAS_H

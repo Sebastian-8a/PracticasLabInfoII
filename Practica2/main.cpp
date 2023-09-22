@@ -1,11 +1,11 @@
-#include "zonapruebas.h"
-#include "funciones.h"
+//#include "zonapruebas.h"            //estas dos se deben ir
+//#include "funciones.h"              //estas dos se deben ir
 #include "menu.h"
+
 int main()
 {
-    //Menu();
-    string palabra = "hola";
-    minusAMayus(palabra);
-    cout << palabra;
+    Menu();
+
+
     return 0;
 }

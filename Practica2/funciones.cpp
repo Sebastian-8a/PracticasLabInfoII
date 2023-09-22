@@ -1,9 +1,5 @@
 #include "funciones.h"
-
-void Funciones()
-{
-
-}
+#include <string>
 
 
 
@@ -38,6 +34,30 @@ void contar(char arreglo[], int n, int letras[] ){
 
 int conversionCharInt(string cadena){
     int num = 0;
-    num = stoi(cadena);
+    num = std::stoi(cadena);
     return num;
+}
+
+string minusAMayus(string palabra){
+    int len =0;
+    len = palabra.length();
+    for (int i = 0; i < len; i ++){
+        palabra[i] = toupper(palabra[i]);
+    }
+    return palabra;
+}
+
+string texto(string ingresado, int *numeros){
+    string letras = "", numTemp = "";
+    int len  = ingresado.length();
+    for (int i = 0; i< len; i++){
+        if (isdigit(ingresado[i])){
+            numTemp += ingresado[i];
+        }
+        else{
+            letras +=  ingresado[i];
+        }
+    }
+    *numeros = std::stoi(numTemp);
+    return letras;
 }

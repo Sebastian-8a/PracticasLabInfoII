@@ -3,11 +3,11 @@
 #include <iostream>
 #include <cstdlib>
 #include<ctime>
+#include <string.h>
 
 using namespace std;
 
 
-void Funciones();
 void ejercicio2();
 void problema2();
 void problema4();
@@ -23,5 +23,9 @@ void fun_c(double *, int, double *, double *);
 void aleatorio(char[],int);
 void contar(char [], int , int [] );
 int conversionCharInt(string );
+string minusAMayus(string);
+string texto(string , int *);
+
+
 
 #endif // FUNCIONES_H

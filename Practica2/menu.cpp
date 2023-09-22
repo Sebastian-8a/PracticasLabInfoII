@@ -15,9 +15,9 @@ void Menu()
 
         switch (opcion){
         case 1:
-            system("cls");
+            system("cls");      //Comando para limpiar pantalla perteneciente a std
             while (opcionB != 2){
-                //Comando para limpiar pantalla perteneciente a std
+
                 cout << "\n 1. Ejercicio 2. \n"
                         "2. volver al menú inicial. \n"
                         "Ingrese una opción: ";
@@ -78,23 +78,23 @@ void Menu()
                     break;
                 case 6:
                     system("cls");
-                    //problema10();
+                    problema10();
                     break;
                 case 7:
                     system("cls");
-                    //problema12();
+                    problema12();
                     break;
                 case 8:
                     system("cls");
-                    //problema14();
+                    problema14();
                     break;
                 case 9:
                     system("cls");
-                    //problema16();
+                    problema16();
                     break;
                 case 10:
                     system("cls");
-                    //problema18();
+                    problema18();
                     break;
                 default:
                     system("cls");
