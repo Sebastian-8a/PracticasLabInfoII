@@ -46,13 +46,13 @@ void Menu()
                 cout << "\n 1. volver al menú inicial. \n"
                         "2. Problema 2. \n"
                         "3. Problema 4. \n"
-                        "4. Problema 4. \n"
-                        "5. Problema 6. \n"
-                        "6. Problema 8. \n"
-                        "7. Problema 10. \n"
-                        "8. Problema 12. \n"
-                        "9. Problema 14. \n"
-                        "10. Problema 18. \n"
+                        "4. Problema 6. \n"
+                        "5. Problema 8. \n"
+                        "6. Problema 10. \n"
+                        "7. Problema 12. \n"
+                        "8. Problema 14. \n"
+                        "9. Problema 16. \n"
+                        "10. Problema 18 \n"
                         "Ingrese una opción: ";
                         cin>> opcionC;
                 switch(opcionC){

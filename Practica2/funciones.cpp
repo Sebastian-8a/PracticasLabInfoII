@@ -61,3 +61,60 @@ string texto(string ingresado, int *numeros){
     *numeros = std::stoi(numTemp);
     return letras;
 }
+
+int romanoArabigo(string letras){
+    map <char, int> mapa;
+    mapa['M'] = 1000;
+    mapa['D'] = 500;
+    mapa['C'] = 100;
+    mapa['L'] = 50;
+    mapa['X'] = 10;
+    mapa['V'] = 5;
+    mapa['I'] = 1;
+
+    int  len = 0, suma = 0;
+    len = letras.length();
+    for(int i = 0 ; i< len; i++){
+        if (mapa[letras[i]] < mapa[letras[i+1]]){
+            suma += mapa[letras[i+1]] - mapa[letras[i]];
+            i++;
+        }
+        else
+            suma += mapa[letras[i]];
+    }
+    return suma;
+}
+
+
+bool cuadradoMagico(int **matriz, int n){            //modifico el 3 con base en el tamaño de la matriz
+    int constante = 0, suma = 0, columna2 = n-1;
+    for (int columna = 0; columna < n ; columna ++){
+        constante += matriz[0][columna];
+    }
+    for (int fila = 1; fila<n ; fila++){            // suma de cada fila
+        suma = 0;
+        for (int columna = 0; columna < n; columna++ ){
+            suma += matriz[fila][columna];
+        }
+        if (suma != constante) return false;
+    }
+    for (int columna = 0; columna<n ; columna++){           //suma de cada columna
+        suma = 0;
+        for (int  fila= 0; fila < n; fila++ ){
+            suma += matriz[fila][columna];
+        }
+        if (suma != constante) return false;
+    }
+    suma = 0;
+    for (int i = 0; i<n ; i ++){            //suma de diagonal ppal
+        suma += matriz[i][i];
+    }
+    if (suma != constante) return false;
+    suma = 0;
+    for (int i = 0; i < n ; i ++){            //suma de diagonal ppal inversa
+        suma += matriz[i][columna2];
+        columna2--;
+    }
+    if (suma != constante) return false;
+    return true;
+}

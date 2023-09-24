@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include<ctime>
 #include <string.h>
+#include <map>
 
 using namespace std;
 
@@ -25,7 +26,8 @@ void contar(char [], int , int [] );
 int conversionCharInt(string );
 string minusAMayus(string);
 string texto(string , int *);
-
+int romanoArabigo(string );
+bool cuadradoMagico(int **, int);        //modifico el 3 con base en el tamaño de la matriz
 
 
 #endif // FUNCIONES_H

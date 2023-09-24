@@ -12,7 +12,6 @@ void ejercicio2(){
     cout << "El promedio de los números:";
         for (int k = 0; k < 5; k++) cout << " " << arreglo[k];
     cout << " es: " << prom;
-    //*promedio<< endl << *suma<< endl<< prom << endl<< sum;
 
 }
 
@@ -47,7 +46,11 @@ void problema4(){
 void problema6(){
     string palabra = "";
     cout<< "Ingrese una cadena de caracteres: ";
-    getline(cin,palabra, '\n');             //acción, donde se almacena, hasta donde lee
+    while (true){
+    getline(cin,palabra);             //acción, donde se almacena, hasta donde lee
+        if (palabra != "")
+        break;
+    }
     string newPalabra = minusAMayus(palabra);
     cout << "Original: "<< palabra<< ". En mayuscula: "<<newPalabra;
 }
@@ -56,18 +59,60 @@ void problema8(){
     string letras = "";
     string ingresado = "";
     cout << "Ingrese una cadena de caracteres: ";
-    getline(cin, ingresado, '\n');
+    while (true){
+        getline(cin,ingresado);             //acción, donde se almacena, hasta donde lee
+        if (ingresado != "")
+        break;
+    }
     int numeros = 0;
     int  *ptrNum =&numeros;
-    letras = texto(ingresado, ptrNum);
+    letras = texto(ingresado, ptrNum);          //Se debe ingresar antes del 0 un numero diferente ya que al hacer la conversión, se adapta a entero y no vale un 0 a la izq o simplemente se cambia por cadena de caracteres
     cout<< "Original: "<< ingresado<< endl<< "Texto: "<< letras<< endl<< "Numero: "<< numeros;
 }
 
 void problema10(){
-
+    string ingresado = "";
+    int resultado  = 0;
+    cout <<"Ingrese una cadena de numeros romanos: " ;
+    while (true){
+        getline(cin,ingresado);             //acción, donde se almacena, hasta donde lee
+        if (ingresado != "")
+        break;
+    }
+    resultado = romanoArabigo(ingresado);
+    cout << "El número ingresado fue: " << ingresado<< endl;
+            cout <<"Que corresponde a: "<< resultado;
 }
 
 void problema12(){
+            int n= 0;
+            cout << "Ingrese el tamaño de cada fila o columna: ";
+                    cin >> n;
+
+            int** matriz = new int *[n];
+            for (int i = 0; i < n; i++){
+        matriz[i] = new int [n];
+            }
+
+            for (int fila = 0; fila < n ; fila++){
+        for (int columna = 0; columna < n; columna++){
+        cout << "Ingrese el valor de la fila "<< fila<< " y columna "<< columna<< " : ";
+        cin >> matriz[fila][columna];
+        }
+            }
+            for (int fila = 0; fila < n ; fila++){
+        for (int columna = 0; columna < n; columna++){
+        cout << matriz[fila][columna] << " ";
+        }
+        cout << endl;
+            }
+            if (cuadradoMagico(matriz,n)){
+        cout << "La matriz ingresada es cuadrado magico";
+            }
+            else cout << "La matriz ingresada NO es cuadrado magico";
+
+            for (int i = 0; i < n; i++) delete[] matriz[i];
+            delete[] matriz;
 
 }
 
