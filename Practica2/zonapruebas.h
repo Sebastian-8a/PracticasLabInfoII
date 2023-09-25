@@ -6,11 +6,11 @@
 #include <string.h>
 #include <map>
 #include <string>
-#include "funciones.h"
+//#include "funciones.h"
 
 using namespace std;
 
-
+//int permutacion(int );
 
 
 

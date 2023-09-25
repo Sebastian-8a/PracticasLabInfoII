@@ -1,14 +1,8 @@
-#include "zonapruebas.h"            //estas dos se deben ir
-#include "funciones.h"              //estas dos se deben ir
 #include "menu.h"
-
-
-
 
 
 int main()
 {
-   //Menu();
-
+   Menu();
     return 0;
 }

@@ -40,7 +40,8 @@ void Menu()
 
             break;
         case 2:
-            system("cls");
+            //system("cls");
+            cout << "\n \n";
             while (opcionC != 1){
                 //Comando para limpiar pantalla perteneciente a std
                 cout << "\n 1. volver al menú inicial. \n"
