@@ -5,6 +5,7 @@
 #include<ctime>
 #include <string.h>
 #include <map>
+#include <string>
 
 using namespace std;
 
@@ -28,6 +29,11 @@ string minusAMayus(string);
 string texto(string , int *);
 int romanoArabigo(string );
 bool cuadradoMagico(int **, int);        //modifico el 3 con base en el tamaño de la matriz
+int ** rotar(int **);
+int factorial(int );
+int caminosPosibles(int );
+
+
 
 
 #endif // FUNCIONES_H

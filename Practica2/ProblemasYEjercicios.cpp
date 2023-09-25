@@ -85,42 +85,80 @@ void problema10(){
 }
 
 void problema12(){
-            int n= 0;
-            cout << "Ingrese el tamaño de cada fila o columna: ";
-                    cin >> n;
+        int n= 0;
+        cout << "Ingrese el tamaño de cada fila o columna: ";
+        cin >> n;
 
-            int** matriz = new int *[n];
-            for (int i = 0; i < n; i++){
-        matriz[i] = new int [n];
+        int** matriz = new int *[n];
+        for (int i = 0; i < n; i++){
+            matriz[i] = new int [n];
             }
 
-            for (int fila = 0; fila < n ; fila++){
-        for (int columna = 0; columna < n; columna++){
-        cout << "Ingrese el valor de la fila "<< fila<< " y columna "<< columna<< " : ";
-        cin >> matriz[fila][columna];
+        for (int fila = 0; fila < n ; fila++){
+            for (int columna = 0; columna < n; columna++){
+                cout << "Ingrese el valor de la fila "<< fila<< " y columna "<< columna<< " : ";
+                cin >> matriz[fila][columna];
         }
             }
-            for (int fila = 0; fila < n ; fila++){
-        for (int columna = 0; columna < n; columna++){
-        cout << matriz[fila][columna] << " ";
+        for (int fila = 0; fila < n ; fila++){
+            for (int columna = 0; columna < n; columna++){
+            cout << matriz[fila][columna] << " ";
+            }
+            cout << endl;
         }
-        cout << endl;
-            }
-            if (cuadradoMagico(matriz,n)){
-        cout << "La matriz ingresada es cuadrado magico";
-            }
-            else cout << "La matriz ingresada NO es cuadrado magico";
+        if (cuadradoMagico(matriz,n)) cout << "La matriz ingresada es cuadrado magico";
+        else cout << "La matriz ingresada NO es cuadrado magico";
 
-            for (int i = 0; i < n; i++) delete[] matriz[i];
-            delete[] matriz;
+        for (int i = 0; i < n; i++) delete[] matriz[i];
+        delete[] matriz;
 
 }
 
 void problema14(){
+        int **matriz = new int* [5];
+        int **nuevaMatriz = new int* [5];
+        int num = 1;
+        /*
+    int contador = 1, limSup = 26;
+    unsigned seed = time(0);
+    srand(seed);                No se puede generar el rand ya que nada nos asegura que se generen todos 1-25*/
+
+
+        for (int i = 0; i < 5; i++){
+            matriz[i] = new int [5];
+        }
+
+        for (int fila = 0; fila < 5; fila++){
+            for (int columna = 0; columna< 5; columna++, num++){
+            matriz[fila][columna]= num;
+            }
+        }
+        cout << "La matriz original es: "<< endl;
+        for (int fila = 0; fila < 5; fila++){
+            for (int columna = 0; columna< 5; columna++){
+            cout << matriz[fila][columna]<< " ";
+            }
+            cout << endl;
+        }
+        cout << "La matriz rotada 90 grados: ";
+        nuevaMatriz = rotar(matriz);
+        cout << "La matriz rotada 180 grados: ";
+        nuevaMatriz = rotar(nuevaMatriz);
+        cout << "La matriz rotada 270 grados: ";
+        nuevaMatriz = rotar(nuevaMatriz);
+
+        for (int i = 0; i < 5; i++) delete[] nuevaMatriz[i];
+        delete[] nuevaMatriz;
+        for (int i = 0; i < 5; i++) delete[] matriz[i];
+        delete[] matriz;
 
 }
 
 void problema16(){
+        int n = 0;
+        cout << "Ingrese el tamaño de la malla CUADRADA: ";
+                cin >> n;
+        cout << "Para una malla de "<< n << "x" << n << " puntos hay " << caminosPosibles(n) << " caminos posibles.";
 
 }
 

@@ -1,5 +1,5 @@
 #include "funciones.h"
-#include <string>
+
 
 
 
@@ -118,3 +118,46 @@ bool cuadradoMagico(int **matriz, int n){            //modifico el 3 con base en
     if (suma != constante) return false;
     return true;
 }
+
+
+
+int  **rotar(int **matriz){
+    int **matriz2 = new int* [5];
+    for (int i = 0; i < 5; i++){
+        matriz2[i] = new int [5];
+    }
+
+
+    for (int i=0; i< 5; i ++){
+        for (int j = 0; j< 5; j++){
+            matriz2[i][j] = matriz[4-j][i] ;            //4 ya que es el total de posiciones por comenzar desde 0
+        }
+    }
+
+    cout << endl;
+    for (int fila = 0; fila < 5; fila++){
+        for (int columna = 0; columna< 5; columna++){
+            cout << matriz2[fila][columna]<< " ";
+        }
+        cout << endl;
+    }
+    return matriz2;
+}
+
+
+
+int factorial(int num){
+    int total = 1;
+    for (int i = 0; i < num; i ++){
+        total *= num - i;
+    }
+
+    return total;
+}
+
+int caminosPosibles(int n){
+    int combinacion  = 0;
+    combinacion = (factorial(n*2))/(factorial(n)*factorial(n));
+    return combinacion;
+}
+
