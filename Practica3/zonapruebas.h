@@ -2,7 +2,7 @@
 #define ZONAPRUEBAS_H
 
 
-int decimalBinario(int );
+
 
 
 
