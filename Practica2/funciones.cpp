@@ -161,3 +161,35 @@ int caminosPosibles(int n){
     return combinacion;
 }
 
+
+
+void permutacionlexi(int n){
+    int len = 0;
+    vector<int> numeros = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    vector<int> permutacion;        // inicialización variable permutación, pero sin valor, la primera operación que recibe será su asignación de valor
+    if (n < 1 || n > 3628800) { // 10!      Número máximo permitido
+        cout << "El valor de n está fuera del rango válido." << endl;
+            return ;
+    }
+
+    do {
+        permutacion = numeros; // Copia valor encontrado en numeros
+        n--;
+    } while (n > 0 && next_permutation(numeros.begin(), numeros.end()));
+
+    /*
+    next permutation... calcula la siguiente permutación lexicográfica comparando
+    elemento a elemento y modifica el orden en que se encuentra numeros
+
+    - se ejecuta hasta que se logre la permutación del número deseado gracias a
+    la condición de n
+    */
+    cout << "La enésima permutación lexicográfica de los números del 0 al 9 con n = " << n + 1 << " es: ";
+    len = permutacion.size();           //Det cant elem del vector
+    for (int i = 0; i < len; i++) {
+        cout << permutacion[i];
+    }
+    cout << endl;
+
+    return;
+}

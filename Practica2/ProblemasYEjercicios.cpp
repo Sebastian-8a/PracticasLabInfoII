@@ -1,5 +1,5 @@
 #include "funciones.h"
-//
+
 
 
 void ejercicio2(){
@@ -163,7 +163,10 @@ void problema16(){
 }
 
 void problema18(){
-
+        int n = 0 ;
+        cout << "Ingrese el valor de n: ";
+        cin >> n;
+        permutacionlexi(n);
 }
 
 

@@ -1,5 +1,4 @@
 #include "menu.h"
-#include "funciones.h"
 
 void Menu()
 {
@@ -41,9 +40,10 @@ void Menu()
             break;
         case 2:
             //system("cls");
+            //Comando para limpiar pantalla perteneciente a std
             cout << "\n \n";
             while (opcionC != 1){
-                //Comando para limpiar pantalla perteneciente a std
+
                 cout << "\n 1. volver al menú inicial. \n"
                         "2. Problema 2. \n"
                         "3. Problema 4. \n"

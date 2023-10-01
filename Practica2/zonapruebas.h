@@ -6,12 +6,10 @@
 #include <string.h>
 #include <map>
 #include <string>
-//#include "funciones.h"
+#include <algorithm>
+#include <vector>
+
 
 using namespace std;
-
-//int permutacion(int );
-
-
 
 #endif // ZONAPRUEBAS_H

@@ -6,6 +6,8 @@
 #include <string.h>
 #include <map>
 #include <string>
+#include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -28,11 +30,11 @@ int conversionCharInt(string );
 string minusAMayus(string);
 string texto(string , int *);
 int romanoArabigo(string );
-bool cuadradoMagico(int **, int);        //modifico el 3 con base en el tamaño de la matriz
+bool cuadradoMagico(int **, int);
 int ** rotar(int **);
 int factorial(int );
 int caminosPosibles(int );
-
+void permutacionlexi(int );
 
 
 
