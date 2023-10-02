@@ -3,20 +3,13 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-int  decimalBinario(int entero){
-    unsigned int i = 0, binario = 0, producto = 1;
+string  decimalBinario(int entero){
+/*
+Función que retorna en forma de string el equivalente en binario de un entero que se ingrese
+en este caso se ingresa un caracter de tipo char
+*/
+    unsigned int i = 0;
+    string binario = "";
     short int arreglo[8] = {};  // 8 debido a que es la cantidad de bits contenida en 1 byte
     while (entero != 1){        //ciclo while para generar la conversión de entero a binario
         if ((entero%2) == 1){
@@ -31,15 +24,12 @@ int  decimalBinario(int entero){
     }
     arreglo[7-i] = 1;
 
-
-    for (int i = 0; i<8; i++){
-        binario += arreglo[7-i] * producto;
-        producto *= 10;
+    for (int j = 0; j<8; j++){
+        binario += to_string(arreglo[j]);
     }
+
     return binario;
 }
-
-
 
 
 
@@ -56,7 +46,7 @@ string leer(string nombreArchivo){
     //Leer por linea
     while (! archivo.eof()){            //Mientras que no me encuentre con el final del archivo
         getline(archivo,temp);   //Obtener una linea
-        lineas += temp + "\n";
+        lineas += temp;
     }
     archivo.close();    //Cerrar el archivo
 
@@ -64,5 +54,30 @@ string leer(string nombreArchivo){
 }
 
 void modificar(string contenido){
-
+    ofstream archivo2("archivo1.txt");
+    archivo2<< contenido ;
 }
+
+
+string contenidoEnBinario(string contenido){
+/*
+Función que se encarga de retornar como una cadena str el equivalente en binario de cada
+elemento perteneciente a la cadena inicial
+El str retornado será lineal, es decir, no tendrá caracteres separadores entre si, se comprenderá
+que por cada 8 caracteres contiguos, esto representará un byte / caracter de la cadena
+*/
+    short int len = contenido.length();
+    string binario = "";
+    for (int i = 0; i < len; i++){
+        binario += decimalBinario(contenido[i]);
+    }
+    return binario;
+}
+
+
+
+
+
+
+
+

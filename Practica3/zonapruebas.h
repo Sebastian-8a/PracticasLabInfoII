@@ -8,7 +8,7 @@ using namespace std;
 
 
 
-string contenidoEnBinario(string contenido);
+
 
 
 

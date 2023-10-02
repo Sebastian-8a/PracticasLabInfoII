@@ -13,10 +13,10 @@ void ejercicio1();
 void ejercicio2();
 
 
-int decimalBinario(int caracter);
+string decimalBinario(int caracter);
 string leer(string NomArchivo);
 void modificar(string contenido);
-
+string contenidoEnBinario(string contenido);
 
 
 

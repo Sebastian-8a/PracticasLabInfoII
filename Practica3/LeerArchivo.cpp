@@ -46,5 +46,5 @@ int leer()
     cout<<"Numero leido por caracter: " <<numero2<<endl;
 
     archivo.close();    //Cerrar el archivo
-
+    return 0;
 }
