@@ -133,6 +133,7 @@ void problema14(){
             matriz[fila][columna]= num;
             }
         }
+
         cout << "La matriz original es: "<< endl;
         for (int fila = 0; fila < 5; fila++){
             for (int columna = 0; columna< 5; columna++){

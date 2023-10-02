@@ -123,7 +123,7 @@ bool cuadradoMagico(int **matriz, int n){            //modifico el 3 con base en
 
 int  **rotar(int **matriz){
     int **matriz2 = new int* [5];
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < 5; i++){        //creación matriz temporal
         matriz2[i] = new int [5];
     }
 
@@ -160,6 +160,15 @@ int caminosPosibles(int n){
     combinacion = (factorial(n*2))/(factorial(n)*factorial(n));
     return combinacion;
 }
+
+/*
+  n*2 debido a que es la cantidad máxima de movimientos posibles sin importar su orden
+  En el denominador n!*n! debido a que es una malla cuadrada y esta fórmula sólo servirá
+  en caso de mallas cuadradas
+  dividido sobre n a causa que debo escoger los mismos n caminos hacia derecha y n hacia abajo
+
+  combinación debido a que el orden de los elementos no importa
+ */
 
 
 
