@@ -1,11 +1,16 @@
 
 #include "zonapruebas.h"
 #include "funciones.h"
-#include <fstream>
 
 
 int main(){
-    leer();
+
+    string contenido = "", prueba = "";
+    contenido = leer("archivo1.txt");
+    prueba = contenidoEnBinario(contenido);
+    cout <<endl<< prueba;
+
+
 
     return 0;
 }
