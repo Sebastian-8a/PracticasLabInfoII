@@ -6,7 +6,7 @@
 
 using namespace std;
 
-
+string bloqueCodif(int cantUnos, int cantCeros, string bloqueTemp1);
 
 
 

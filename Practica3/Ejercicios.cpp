@@ -8,6 +8,8 @@ variables:
     nombreSalida: nombre del archivo en el cual quedará registrado el contenido una vez ha sido codificado
     contenido: contenido encontrado en el archivo leído
     bin: contenido leído en formato binario
+    bloqueOrg: bloque del binario original que será el que determine la condición de modificación al siguiente
+    codificado: Bloque final una vez ha sido codificado
     int/
     bloque: tamaño del bloque ingresado
     numBloques: cantidad de bloques que se pueden generar en la cadena leída y convertida en binario
@@ -19,8 +21,8 @@ variables:
 
 
 */
-    string  nombreSalida , contenido, bin, bloqueTemp1, bloqueTemp2 ;
-    int bloque = 0, numBloques = 0, len = 0;
+    string  nombreSalida , contenido, bin, bloqueOrg, bloqueTemp1, bloqueCodificado, codificado;
+    int bloque = 0, numBloques = 0, len = 0, cantCeros = 0, cantUnos = 0;
     bool  bandera = false;
 
 
@@ -43,6 +45,26 @@ variables:
 
     numBloques = len / bloque;
     cout << "El archivo en binario sería:"<< endl<< bin << endl;
+
+    for (int i  = 0; i< bloque; i++){        //toma del primer bloque para invertir los valores
+        bloqueOrg += bin[i];
+        if (bin[i]== '1')       //conteo de números para realizar la primera modificación
+            cantUnos += 1;
+        else
+            cantCeros += 1;
+    }
+
+    for (int i = 0; i< bloque; i++){        //aplicación primer modificación
+        if (bloqueOrg[i] == '1')
+            codificado += '0';
+        else
+            codificado += '1';
+    }
+
+
+
+
+    /*
     for (int i = 0; i < numBloques; i++){
         bloqueTemp1 = "", bloqueTemp2 = "";
         //len-1 (ultimo indice) -> a -i
@@ -56,7 +78,7 @@ variables:
         cout << bloqueTemp1<< endl << bloqueTemp2<< endl;
     }
 
-
+*/
 /*
     cout << "Ingrese el nombre del archivo donde se reflejarán los cambios: ";
     cin >>nombreSalida;
