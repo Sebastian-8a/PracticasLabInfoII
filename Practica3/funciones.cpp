@@ -33,22 +33,38 @@ en este caso se ingresa un caracter de tipo char
 
 
 
-string leer(string nombreArchivo){
-    string lineas, temp;
+string leer(){
+    string lineas, temp, nombreEntrada;
     ifstream archivo;         //Instancia de la clase iftream (lectura) para representar el archivo
+    bool estado = false;
+    while (estado == false){
+        try{
+            cout << "Ingrese el nombre del archivo a leer: ";
+            cin >>nombreEntrada;
+            archivo.open(nombreEntrada, ios::in);  //Abrir el archivo para lectura
+            if (!archivo.is_open()) {
+                throw 1;   //Exit the program with an error code         evaluar try / except
+            }
 
-    archivo.open(nombreArchivo, ios::in);  //Abrir el archivo para lectura
-    if (!archivo.is_open()) {
-        cout << "Falla." << endl;
-        //return;   Exit the program with an error code         evaluar try / except
+            //Leer por linea
+            while (! archivo.eof()){            //Mientras que no me encuentre con el final del archivo
+                getline(archivo,temp);   //Obtener una linea
+                lineas += temp;
+            }
+            archivo.close();    //Cerrar el archivo
+            throw 2;
+        }   catch(int num){
+            if (num == 1){
+                //system("cls");
+                cout<< "Nombre erróneo, intente de nuevo."<< endl;
+            }
+            else if(num ==2){
+                estado = true;
+            }
+        }
     }
 
-    //Leer por linea
-    while (! archivo.eof()){            //Mientras que no me encuentre con el final del archivo
-        getline(archivo,temp);   //Obtener una linea
-        lineas += temp;
-    }
-    archivo.close();    //Cerrar el archivo
+
 
     return lineas;
 }

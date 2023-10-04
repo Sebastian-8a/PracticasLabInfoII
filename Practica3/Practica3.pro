@@ -8,7 +8,6 @@ CONFIG += c++17 cmdline
 
 SOURCES += \
         Ejercicios.cpp \
-        LeerArchivo.cpp \
         funciones.cpp \
         main.cpp \
         menu.cpp \

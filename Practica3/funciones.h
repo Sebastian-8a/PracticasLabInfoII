@@ -14,7 +14,7 @@ void ejercicio2();
 
 
 string decimalBinario(int caracter);
-string leer(string NomArchivo);
+string leer();
 void modificar(string contenido);
 string contenidoEnBinario(string contenido);
 
