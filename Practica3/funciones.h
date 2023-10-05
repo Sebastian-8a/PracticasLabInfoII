@@ -17,8 +17,8 @@ string decimalBinario(int caracter);
 string leer();
 void modificar(string contenido);
 string contenidoEnBinario(string contenido);
-string bloqueCodif(int cantUnos, int cantCeros, string bloqueTemp1);
-
+string bloqueCodifMet1(int cantUnos, int cantCeros, string bloqueOrg);
+string bloqueCodifMet2(string bloqueOrg);
 
 
 

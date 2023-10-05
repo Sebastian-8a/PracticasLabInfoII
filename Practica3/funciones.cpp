@@ -109,39 +109,47 @@ que por cada 8 caracteres contiguos, esto representará un byte / caracter de la
 
 
 
-string bloqueCodif(int cantUnos, int cantCeros, string bloqueTemp1){
+string bloqueCodifMet1(int cantUnos, int cantCeros, string bloqueOrg){
     string bloqueCodificado;
-    int bloque = bloqueTemp1.length();
+    int bloque = bloqueOrg.length();
     if (cantCeros > cantUnos){
         for (int i = 0; i< bloque; i++){
             if ((i % 2) == 0){
-                bloqueCodificado += bloqueTemp1[i];
+                bloqueCodificado += bloqueOrg[i];
             }
             else
-                bloqueCodificado += bloqueTemp1[i] == '1' ? '0' : '1';       //Invertir el valor usando operador ternario
+                bloqueCodificado += bloqueOrg[i] == '1' ? '0' : '1';       //Invertir el valor usando operador ternario
         }
     }
     else if(cantCeros < cantUnos){
         for (int i = 0, j = 1; i < bloque; i++){
             if (j == 3){                //3 para modificar cada que se pasen 2 posiciones y se ubique en la tercera
-                bloqueCodificado += bloqueTemp1[i] == '1' ? '0' : '1';
+                bloqueCodificado += bloqueOrg[i] == '1' ? '0' : '1';
                 j = 1;
             }
             else{
-                bloqueCodificado += bloqueTemp1[i];
+                bloqueCodificado += bloqueOrg[i];
                 j++;
             }
         }
     }
     else{
         for (int i = 0; i< bloque; i++){
-            bloqueCodificado += bloqueTemp1[i] == '1' ? '0' : '1';
+            bloqueCodificado += bloqueOrg[i] == '1' ? '0' : '1';
         }
     }
     return bloqueCodificado;
 }
 
-
+string bloqueCodifMet2(string bloqueOrg){
+    string bloqueCodificado;
+    int bloque = bloqueOrg.length();
+    bloqueCodificado += bloqueOrg[bloque- 1];
+    for (int i = 0; i < (bloque - 1) ; i++){
+        bloqueCodificado += bloqueOrg[i];
+    }
+    return bloqueCodificado;
+}
 
 
 

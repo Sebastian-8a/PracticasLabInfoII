@@ -1,4 +1,6 @@
 #include "funciones.h"
+#include "zonapruebas.h"
+
 
 void ejercicio1(){
 /*
@@ -22,7 +24,7 @@ variables:
 
 */
     string  nombreSalida , contenido, bin, bloqueOrg, bloqueCodificado, codificado;
-    int bloque = 0, numBloques = 0, len = 0, cantCeros = 0, cantUnos = 0;
+    int bloque = 0, numBloques = 0, len = 0, cantCeros = 0, cantUnos = 0, metodo = 0;
     bool  bandera = false;
 
     contenido = leer();
@@ -33,44 +35,59 @@ variables:
         cout << "Ingrese el tamaño del bloque: ";
                 cin >> bloque;
         if ((len % bloque) != 0){           //Confirmar el caso donde la cadena se pueda dividir totalmente sobre el número del bloqaue
-        system("cls");
-        cout << "La cadena no puede dividirse completamente en bloques de "<< bloque<< " elementos"<<endl;
-            }
+            system("cls");
+            cout << "La cadena no puede dividirse completamente en bloques de "<< bloque<< " elementos"<<endl;
+        }
         else{
-        bandera = true;
-            }
+            bandera = true;
+        }
     }
-
     numBloques = len / bloque;
-    // cout << "El archivo en binario sería:"<< endl<< bin << endl;     Mostrar esto si se desea ya que no se solicita
+    // cout << "El archivo en binario sería:"<< endl<< bin << endl;    Mostrar esto si se desea ya que no se solicita
 
-    for (int i  = 0; i< bloque; i++){        //toma del primer bloque para invertir los valores
-        bloqueOrg += bin[i];
-        if (bin[i]== '1')       //conteo de números para realizar la primera modificación
-            cantUnos += 1;
-        else
-            cantCeros += 1;
-    }
-    codificado += bloqueCodif(2,2,bloqueOrg);       //el 2 solo es para indicar que deben reemplazar cada número por su opuesto
-
-    for (int bloqueNum = 1; bloqueNum< numBloques; bloqueNum++){        //bloqueNum: bloque Número...
-        bloqueOrg = "";
-        for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
-            bloqueOrg += bin[j];
+    while(metodo != 3){
+        cout <<  "\nIngrese el método de codificación: "
+                "\n1. método 1"
+                "\n2. método 2"
+                "\nopción:";
+        cin >> metodo;
+        switch (metodo) {
+        case 1:
+            for (int bloqueNum = 0; bloqueNum< numBloques; bloqueNum++){        //bloqueNum: bloque Número...
+                bloqueOrg = "";
+                for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
+                    bloqueOrg += bin[j];
+                }
+                codificado += bloqueCodifMet1(cantUnos,cantCeros,bloqueOrg);
+                cantCeros = 0, cantUnos = 0;
+                for (int indice = 0; indice < bloque; indice++){        //Conteo de 1 y 0 de la cadena
+                    if (bloqueOrg[indice]== '1')
+                        cantUnos += 1;
+                    else
+                        cantCeros += 1;
+                }
+            }
+            cout <<"El archivo codificado seria: "<<endl<< codificado;  // Mostrar esto si se desea ya que no se solicita
+            metodo = 3;
+            break;
+        case 2:
+            for (int bloqueNum = 0; bloqueNum< numBloques; bloqueNum++){
+                bloqueOrg = "";
+                for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
+                    bloqueOrg += bin[j];
+                }
+                codificado += bloqueCodifMet2(bloqueOrg);
+            }
+            //cout <<"El archivo codificado seria: "<<endl<< codificado;   Mostrar esto si se desea ya que no se solicita
+            metodo = 3;
+            break;
+        default:
+            cout << "\nOpción inválida";
+            break;
         }
-        codificado += bloqueCodif(cantUnos,cantCeros,bloqueOrg);
-        cantCeros = 0, cantUnos = 0;
-        for (int indice = 0; indice < bloque; indice++){        //Conteo de 1 y 0 de la cadena
-            if (bloqueOrg[indice]== '1')
-                cantUnos += 1;
-            else
-                cantCeros += 1;
-        }
-    }
-            // cout <<"El archivo codificado seria: "<<endl<< codificado;   Mostrar esto si se desea ya que no se solicita
     modificar(codificado);
+    }
 }
-
 
 void ejercicio2(){
 
