@@ -1,3 +1,37 @@
 Generar modificaciones al archivo
     ofstream archivo2("archivo1.txt");
     archivo2<< lineas ;
+
+class Usuario
+{
+    friend int Login();
+    friend void GrabarUser(Usuario&);
+    //friend int VerificarUser(Usuario&);
+    //friend int VerificarUser2(Usuario&);
+private:
+    string User;
+    string Password;
+public:
+    ~Usuario() {
+
+    }
+
+    void setUser(string _User) {
+        User = _User;
+    }
+
+    string getUser() {
+        return User;
+    }
+    
+    void setPassword(string _Password) {
+        Password = _Password;
+    }
+    string getPassword() {
+        return Password;
+    }
+    void RegistrarUser();
+};
+void CrearArchivo();
+void GrabarUser(Usuario&);
+int Login();

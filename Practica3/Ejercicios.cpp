@@ -21,13 +21,11 @@ variables:
 
 
 */
-    string  nombreSalida , contenido, bin, bloqueOrg, bloqueTemp1, bloqueCodificado, codificado;
+    string  nombreSalida , contenido, bin, bloqueOrg, bloqueCodificado, codificado;
     int bloque = 0, numBloques = 0, len = 0, cantCeros = 0, cantUnos = 0;
     bool  bandera = false;
 
-
     contenido = leer();
-
     bin = contenidoEnBinario(contenido);
     len = bin.length();
 
@@ -44,7 +42,7 @@ variables:
     }
 
     numBloques = len / bloque;
-    cout << "El archivo en binario sería:"<< endl<< bin << endl;
+    // cout << "El archivo en binario sería:"<< endl<< bin << endl;     Mostrar esto si se desea ya que no se solicita
 
     for (int i  = 0; i< bloque; i++){        //toma del primer bloque para invertir los valores
         bloqueOrg += bin[i];
@@ -53,36 +51,25 @@ variables:
         else
             cantCeros += 1;
     }
+    codificado += bloqueCodif(2,2,bloqueOrg);       //el 2 solo es para indicar que deben reemplazar cada número por su opuesto
 
-    for (int i = 0; i< bloque; i++){        //aplicación primer modificación
-        if (bloqueOrg[i] == '1')
-            codificado += '0';
-        else
-            codificado += '1';
-    }
-
-
-
-
-    /*
-    for (int i = 0; i < numBloques; i++){
-        bloqueTemp1 = "", bloqueTemp2 = "";
-        //len-1 (ultimo indice) -> a -i
-        for (int j = 0; j < bloque*2; j++){
-            if (j< bloque)
-                bloqueTemp1 += bin[i+j];
-            else
-                bloqueTemp2 += bin[bloque+i+j];
+    for (int bloqueNum = 1; bloqueNum< numBloques; bloqueNum++){        //bloqueNum: bloque Número...
+        bloqueOrg = "";
+        for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
+            bloqueOrg += bin[j];
         }
-
-        cout << bloqueTemp1<< endl << bloqueTemp2<< endl;
+        codificado += bloqueCodif(cantUnos,cantCeros,bloqueOrg);
+        cantCeros = 0, cantUnos = 0;
+        for (int indice = 0; indice < bloque; indice++){        //Conteo de 1 y 0 de la cadena
+            if (bloqueOrg[indice]== '1')
+                cantUnos += 1;
+            else
+                cantCeros += 1;
+        }
     }
-
-*/
-/*
-    cout << "Ingrese el nombre del archivo donde se reflejarán los cambios: ";
-    cin >>nombreSalida;
-*/}
+            // cout <<"El archivo codificado seria: "<<endl<< codificado;   Mostrar esto si se desea ya que no se solicita
+    modificar(codificado);
+}
 
 
 void ejercicio2(){

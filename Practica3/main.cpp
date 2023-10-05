@@ -4,8 +4,8 @@
 
 
 int main(){
-    //ejercicio1();
-    cout << bloqueCodif(1,3,"1010101010");
+    ejercicio1();
+
 
 
 

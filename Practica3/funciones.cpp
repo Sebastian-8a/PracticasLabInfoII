@@ -70,9 +70,26 @@ string leer(){
 }
 
 void modificar(string contenido){
-    ofstream archivo2("archivo1.txt");
-    archivo2<< contenido ;
-}
+    string nombreSalida, formato;
+    bool estado = false;
+    int len = 0;
+    while (estado == false){
+            cout << endl<< "Ingrese el nombre del archivo donde se guardará la información codificada: ";
+            cin >>nombreSalida;
+            len = nombreSalida.length();
+            for (int i = 4; i > 0; i --){           //4 a 0 para tomar las últimas 4 posiciones ".txt"
+                formato += nombreSalida[len -i];
+            }
+            if (formato == ".txt"){
+                ofstream archivo2(nombreSalida);
+                archivo2 << contenido;
+                estado = true;
+            }
+            else{
+                cout << endl<< "Formato erróneo, ingrese un .txt";
+            }
+        }
+    }
 
 
 string contenidoEnBinario(string contenido){
