@@ -17,9 +17,9 @@ string decimalBinario(int caracter);
 string leer();
 void modificar(string contenido);
 string contenidoEnBinario(string contenido);
-string bloqueCodifMet1(int cantUnos, int cantCeros, string bloqueOrg);
-string bloqueCodifMet2(string bloqueOrg);
-
+string bloqueMet1(int cantUnos, int cantCeros, string bloque);
+string bloqueMet2(string bloque);
+string bloqueDecodifMet2(string bloqueCodif);
 
 
 #endif // FUNCIONES_H

@@ -48,7 +48,7 @@ string leer(){
 
             //Leer por linea
             while (! archivo.eof()){            //Mientras que no me encuentre con el final del archivo
-                getline(archivo,temp);   //Obtener una linea
+                getline(archivo,temp,'\n');   //Obtener una linea
                 lineas += temp;
             }
             archivo.close();    //Cerrar el archivo
@@ -63,9 +63,6 @@ string leer(){
             }
         }
     }
-
-
-
     return lineas;
 }
 
@@ -74,7 +71,7 @@ void modificar(string contenido){
     bool estado = false;
     int len = 0;
     while (estado == false){
-            cout << endl<< "Ingrese el nombre del archivo donde se guardará la información codificada: ";
+            cout << endl<< "Ingrese el nombre del archivo donde se guardará la información: ";
             cin >>nombreSalida;
             len = nombreSalida.length();
             for (int i = 4; i > 0; i --){           //4 a 0 para tomar las últimas 4 posiciones ".txt"
@@ -109,47 +106,55 @@ que por cada 8 caracteres contiguos, esto representará un byte / caracter de la
 
 
 
-string bloqueCodifMet1(int cantUnos, int cantCeros, string bloqueOrg){
+string bloqueMet1(int cantUnos, int cantCeros, string bloque){
     string bloqueCodificado;
-    int bloque = bloqueOrg.length();
+    int tanañoBloque = bloque.length();
     if (cantCeros > cantUnos){
-        for (int i = 0; i< bloque; i++){
+        for (int i = 0; i< tanañoBloque; i++){
             if ((i % 2) == 0){
-                bloqueCodificado += bloqueOrg[i];
+                bloqueCodificado += bloque[i];
             }
             else
-                bloqueCodificado += bloqueOrg[i] == '1' ? '0' : '1';       //Invertir el valor usando operador ternario
+                bloqueCodificado += bloque[i] == '1' ? '0' : '1';       //Invertir el valor usando operador ternario
         }
     }
     else if(cantCeros < cantUnos){
-        for (int i = 0, j = 1; i < bloque; i++){
+        for (int i = 0, j = 1; i < tanañoBloque; i++){
             if (j == 3){                //3 para modificar cada que se pasen 2 posiciones y se ubique en la tercera
-                bloqueCodificado += bloqueOrg[i] == '1' ? '0' : '1';
+                bloqueCodificado += bloque[i] == '1' ? '0' : '1';
                 j = 1;
             }
             else{
-                bloqueCodificado += bloqueOrg[i];
+                bloqueCodificado += bloque[i];
                 j++;
             }
         }
     }
     else{
-        for (int i = 0; i< bloque; i++){
-            bloqueCodificado += bloqueOrg[i] == '1' ? '0' : '1';
+        for (int i = 0; i< tanañoBloque; i++){
+            bloqueCodificado += bloque[i] == '1' ? '0' : '1';
         }
     }
     return bloqueCodificado;
 }
 
-string bloqueCodifMet2(string bloqueOrg){
+string bloqueMet2(string bloque){
     string bloqueCodificado;
-    int bloque = bloqueOrg.length();
-    bloqueCodificado += bloqueOrg[bloque- 1];
-    for (int i = 0; i < (bloque - 1) ; i++){
-        bloqueCodificado += bloqueOrg[i];
+    int tamañoBloque = bloque.length();
+    bloqueCodificado += bloque[tamañoBloque- 1];
+    for (int i = 0; i < (tamañoBloque - 1) ; i++){
+        bloqueCodificado += bloque[i];
     }
     return bloqueCodificado;
 }
 
 
-
+string bloqueDecodifMet2(string bloqueCodif){
+    string bloqueOrg;
+    int tamañoBloque = bloqueCodif.length();
+    for (int indice = 1; indice < tamañoBloque; indice++){
+        bloqueOrg += bloqueCodif[indice];
+    }
+    bloqueOrg += bloqueCodif[0];
+    return bloqueOrg;
+}

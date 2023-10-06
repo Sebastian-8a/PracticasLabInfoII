@@ -4,7 +4,7 @@
 
 
 int main(){
-    ejercicio1();
+    menu();
 
 
 

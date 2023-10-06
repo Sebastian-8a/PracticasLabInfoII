@@ -23,7 +23,7 @@ variables:
 
 
 */
-    string  nombreSalida , contenido, bin, bloqueOrg, bloqueCodificado, codificado;
+    string   contenido, bin, bloqueOrg, bloqueCodificado, codificado;
     int bloque = 0, numBloques = 0, len = 0, cantCeros = 0, cantUnos = 0, metodo = 0;
     bool  bandera = false;
 
@@ -58,7 +58,7 @@ variables:
                 for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
                     bloqueOrg += bin[j];
                 }
-                codificado += bloqueCodifMet1(cantUnos,cantCeros,bloqueOrg);
+                codificado += bloqueMet1(cantUnos,cantCeros,bloqueOrg);
                 cantCeros = 0, cantUnos = 0;
                 for (int indice = 0; indice < bloque; indice++){        //Conteo de 1 y 0 de la cadena
                     if (bloqueOrg[indice]== '1')
@@ -67,7 +67,7 @@ variables:
                         cantCeros += 1;
                 }
             }
-            cout <<"El archivo codificado seria: "<<endl<< codificado;  // Mostrar esto si se desea ya que no se solicita
+            //cout <<"El archivo codificado seria: "<<endl<< codificado;   Mostrar esto si se desea ya que no se solicita
             metodo = 3;
             break;
         case 2:
@@ -76,7 +76,7 @@ variables:
                 for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
                     bloqueOrg += bin[j];
                 }
-                codificado += bloqueCodifMet2(bloqueOrg);
+                codificado += bloqueMet2(bloqueOrg);
             }
             //cout <<"El archivo codificado seria: "<<endl<< codificado;   Mostrar esto si se desea ya que no se solicita
             metodo = 3;
@@ -90,8 +90,72 @@ variables:
 }
 
 void ejercicio2(){
+/*
 
 
 
+
+
+*/
+    string decodificado, bin, bloqueOrg, bloqueCodif;
+    int len = 0, bloque = 0, metodo = 0, numBloques, cantUnos = 0, cantCeros = 0 ;
+    bool bandera = false;
+    bin = leer();
+    len = bin.length();
+
+    while (bandera == false){
+    cout << "Ingrese el tamaño del bloque: ";
+            cin >> bloque;
+    if ((len % bloque) != 0){           //Confirmar el caso donde la cadena se pueda dividir totalmente sobre el número del bloqaue
+            system("cls");
+            cout << "La cadena no puede dividirse completamente en bloques de "<< bloque<< " elementos"<<endl;
+            }
+    else{
+            bandera = true;
+            }
+        }
+
+    numBloques = len / bloque;
+
+    while(metodo != 3){
+            cout <<  "\nIngrese el método de decodificación: "
+                    "\n1. método 1"
+                    "\n2. método 2"
+                    "\nopción:";
+                    cin >> metodo;
+            switch (metodo) {
+            case 1:
+                for (int bloqueNum = 0; bloqueNum< numBloques; bloqueNum++){        //bloqueNum: bloque Número...
+                    bloqueCodif = "";
+                    for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
+                        bloqueCodif += bin[j];
+                    }
+                    bloqueOrg = bloqueMet1(cantUnos, cantCeros, bloqueCodif);
+                    cantCeros = 0, cantUnos = 0;
+                    decodificado += bloqueOrg;
+                    for (int indice = 0; indice < bloque; indice++){        //Conteo de 1 y 0 de la cadena
+                        if (bloqueOrg[indice]== '1')
+                            cantUnos += 1;
+                        else
+                            cantCeros += 1;
+                    }
+                }
+                metodo = 3;
+                break;
+            case 2:
+                for (int bloqueNum = 0; bloqueNum< numBloques; bloqueNum++){
+                    bloqueOrg = "";
+                    for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
+                        bloqueOrg += bin[j];
+                        }
+                    decodificado += bloqueDecodifMet2(bloqueOrg);
+                }
+                metodo = 3;
+                break;
+            default:
+                cout << "\nOpción inválida";
+                break;
+                }
+        }
+    modificar(decodificado);
 }
-
