@@ -1,5 +1,4 @@
 #include "funciones.h"
-#include "zonapruebas.h"
 
 
 void ejercicio1(){
@@ -97,8 +96,8 @@ void ejercicio2(){
 
 
 */
-    string decodificado, bin, bloqueOrg, bloqueCodif;
-    int len = 0, bloque = 0, metodo = 0, numBloques, cantUnos = 0, cantCeros = 0 ;
+    string decodificado, bin, bloqueOrg, bloqueCodif, decodificadoLetras;
+    int len = 0, bloque = 0, metodo = 0, numBloques, cantUnos = 0, cantCeros = 0 , cantBytes = 0;
     bool bandera = false;
     bin = leer();
     len = bin.length();
@@ -140,6 +139,19 @@ void ejercicio2(){
                             cantCeros += 1;
                     }
                 }
+
+                cantBytes = decodificado.length() / 8;
+
+                for (int byte = 0; byte < cantBytes; byte++){
+                    string binario = "";
+                    for (int indice = (8*byte); indice < 8*(byte+1);indice++ ){
+                        binario+= decodificado[indice];
+                    }
+                    char letra = binarioADecimal(binario);
+                    decodificadoLetras += letra;
+                }
+                decodificado += '\n';
+                decodificado += decodificadoLetras;
                 metodo = 3;
                 break;
             case 2:
@@ -150,6 +162,18 @@ void ejercicio2(){
                         }
                     decodificado += bloqueDecodifMet2(bloqueOrg);
                 }
+                cantBytes = decodificado.length() / 8;
+
+                for (int byte = 0; byte < cantBytes; byte++){
+                    string binario = "";
+                    for (int indice = (8*byte); indice < 8*(byte+1);indice++ ){
+                        binario+= decodificado[indice];
+                    }
+                    char letra = binarioADecimal(binario);
+                    decodificadoLetras += letra;
+                }
+                decodificado += '\n';
+                decodificado += decodificadoLetras;
                 metodo = 3;
                 break;
             default:

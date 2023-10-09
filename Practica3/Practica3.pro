@@ -10,8 +10,7 @@ SOURCES += \
         Ejercicios.cpp \
         funciones.cpp \
         main.cpp \
-        menu.cpp \
-        zonapruebas.cpp
+        menu.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -19,5 +18,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    funciones.h \
-    zonapruebas.h
+    funciones.h

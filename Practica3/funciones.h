@@ -21,5 +21,6 @@ string bloqueMet1(int cantUnos, int cantCeros, string bloque);
 string bloqueMet2(string bloque);
 string bloqueDecodifMet2(string bloqueCodif);
 
-
+int binarioADecimal(string);
+int potencia(int, int);
 #endif // FUNCIONES_H

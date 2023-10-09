@@ -148,6 +148,27 @@ string bloqueMet2(string bloque){
     return bloqueCodificado;
 }
 
+string bloqueDecodifMet1(string bin, int numBloques, int bloque){
+    int cantCeros = 0, cantUnos = 0;
+    string bloqueOrg, decodificado;
+    for (int bloqueNum = 0; bloqueNum< numBloques; bloqueNum++){        //bloqueNum: bloque Número...
+        string bloqueCodif = "";
+        for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
+            bloqueCodif += bin[j];
+        }
+        bloqueOrg = bloqueMet1(cantUnos, cantCeros, bloqueCodif);
+        cantCeros = 0, cantUnos = 0;
+        decodificado += bloqueOrg;
+        for (int indice = 0; indice < bloque; indice++){        //Conteo de 1 y 0 de la cadena
+            if (bloqueOrg[indice]== '1')
+                cantUnos += 1;
+            else
+                cantCeros += 1;
+        }
+    }
+    return decodificado;
+}
+
 
 string bloqueDecodifMet2(string bloqueCodif){
     string bloqueOrg;
@@ -157,4 +178,23 @@ string bloqueDecodifMet2(string bloqueCodif){
     }
     bloqueOrg += bloqueCodif[0];
     return bloqueOrg;
+}
+
+int binarioADecimal(string arreglo){
+    int total = 0;
+    for (int i = 0; i <8; i++){
+        if(arreglo[i]=='1'){
+            total += potencia(2,7-i);
+        }
+    }
+    return total;
+}
+
+
+int potencia(int num, int potencia){
+    int potenciaTotal = 1;
+    for (int j = 0; j < potencia ; j++){
+        potenciaTotal *= num;
+    }
+    return potenciaTotal;
 }
