@@ -19,6 +19,7 @@ void menuInicial(){
         case 3:
             system("cls");
             cout << "\nHasta pronto.";
+            break;
         default:
             system("cls");
             cout << "\nOpcion erronea.";

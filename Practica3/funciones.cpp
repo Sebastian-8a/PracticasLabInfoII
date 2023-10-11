@@ -32,7 +32,6 @@ en este caso se ingresa un caracter de tipo char
 }
 
 
-
 string leer(){
     string lineas, temp, nombreEntrada;
     ifstream archivo;         //Instancia de la clase iftream (lectura) para representar el archivo
@@ -108,9 +107,9 @@ que por cada 8 caracteres contiguos, esto representará un byte / caracter de la
 
 string bloqueMet1(int cantUnos, int cantCeros, string bloque){
     string bloqueCodificado;
-    int tanañoBloque = bloque.length();
+    int tamañoBloque = bloque.length();
     if (cantCeros > cantUnos){
-        for (int i = 0; i< tanañoBloque; i++){
+        for (int i = 0; i< tamañoBloque; i++){
             if ((i % 2) == 0){
                 bloqueCodificado += bloque[i];
             }
@@ -119,7 +118,7 @@ string bloqueMet1(int cantUnos, int cantCeros, string bloque){
         }
     }
     else if(cantCeros < cantUnos){
-        for (int i = 0, j = 1; i < tanañoBloque; i++){
+        for (int i = 0, j = 1; i < tamañoBloque; i++){
             if (j == 3){                //3 para modificar cada que se pasen 2 posiciones y se ubique en la tercera
                 bloqueCodificado += bloque[i] == '1' ? '0' : '1';
                 j = 1;
@@ -131,7 +130,7 @@ string bloqueMet1(int cantUnos, int cantCeros, string bloque){
         }
     }
     else{
-        for (int i = 0; i< tanañoBloque; i++){
+        for (int i = 0; i< tamañoBloque; i++){
             bloqueCodificado += bloque[i] == '1' ? '0' : '1';
         }
     }
@@ -169,7 +168,6 @@ string bloqueDecodifMet1(string bin, int numBloques, int bloque){
     return decodificado;
 }
 
-
 string bloqueDecodifMet2(string bloqueCodif){
     string bloqueOrg;
     int tamañoBloque = bloqueCodif.length();
@@ -179,6 +177,7 @@ string bloqueDecodifMet2(string bloqueCodif){
     bloqueOrg += bloqueCodif[0];
     return bloqueOrg;
 }
+
 
 int binarioADecimal(string arreglo){
     int total = 0;
@@ -190,11 +189,36 @@ int binarioADecimal(string arreglo){
     return total;
 }
 
-
 int potencia(int num, int potencia){
     int potenciaTotal = 1;
     for (int j = 0; j < potencia ; j++){
         potenciaTotal *= num;
     }
     return potenciaTotal;
+}
+
+
+
+
+string cadenaCodifMet1(string cadena){
+    int bloque = 4, numBloques, cantCeros = 0, cantUnos = 0 ;
+    string bloqueOrg, codificado,bin;
+    bin = contenidoEnBinario(cadena);
+    numBloques = bin.length() / bloque;
+
+    for (int bloqueNum = 0; bloqueNum< numBloques; bloqueNum++){        //bloqueNum: bloque Número...
+        bloqueOrg = "";
+        for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
+            bloqueOrg += bin[j];
+        }
+        codificado += bloqueMet1(cantUnos,cantCeros,bloqueOrg);
+        cantCeros = 0, cantUnos = 0;
+        for (int indice = 0; indice < bloque; indice++){        //Conteo de 1 y 0 de la cadena
+            if (bloqueOrg[indice]== '1')
+                cantUnos += 1;
+            else
+                cantCeros += 1;
+        }
+    }
+    return codificado;
 }

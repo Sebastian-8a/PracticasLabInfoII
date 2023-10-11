@@ -64,6 +64,43 @@ string leer(string nombreEntrada){
     return lineas;
 }
 
+int leerUsuarios(string usuarios[]){
+    string lineas, temp;
+    ifstream archivo;
+    int cantUser = 0;
+    bool estado = false;
+    while (estado == false){
+        try{
+            archivo.open("usuarios.txt");  //Abrir el archivo para lectura
+            if (!archivo.is_open()) {
+                throw 1;   //Exit the program with an error code         evaluar try / except
+            }
+
+            //Leer por linea
+            while (! archivo.eof()){            //Mientras que no me encuentre con el final del archivo
+                getline(archivo,temp,'\n');   //Obtener una linea
+                usuarios[cantUser] = temp;
+                cantUser++;
+            }
+            archivo.close();    //Cerrar el archivo
+            throw 2;
+        }   catch(int num){
+            if (num == 1){
+                //system("cls");
+                cout<< "El archivo no se ha abierto"<< endl;
+            }
+            else if(num ==2){
+                estado = true;
+            }
+        }
+    }
+    return cantUser;
+}
+
+
+
+
+
 void modificar(string contenido){
     string nombreSalida, formato;
     bool estado = false;
@@ -103,56 +140,109 @@ que por cada 8 caracteres contiguos, esto representará un byte / caracter de la
 }
 
 
+string cadenaCodifMet1(string cadena){
+    int bloque = 4, numBloques, cantCeros = 0, cantUnos = 0 ;
+    string bloqueOrg, codificado,bin;
+    bin = contenidoEnBinario(cadena);
+    numBloques = bin.length() / bloque;
+
+    for (int bloqueNum = 0; bloqueNum< numBloques; bloqueNum++){        //bloqueNum: bloque Número...
+        bloqueOrg = "";
+        for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
+            bloqueOrg += bin[j];
+        }
+        codificado += bloqueMet1(cantUnos,cantCeros,bloqueOrg);
+        cantCeros = 0, cantUnos = 0;
+        for (int indice = 0; indice < bloque; indice++){        //Conteo de 1 y 0 de la cadena
+            if (bloqueOrg[indice]== '1')
+                cantUnos += 1;
+            else
+                cantCeros += 1;
+        }
+    }
+    return codificado;
+}
+
 
 string bloqueMet1(int cantUnos, int cantCeros, string bloque){
     string bloqueCodificado;
-    int tanañoBloque = bloque.length();
-                       if (cantCeros > cantUnos){
-        for (int i = 0; i< tanañoBloque; i++){
+    int tamañoBloque = bloque.length();
+    if (cantCeros > cantUnos){
+        for (int i = 0; i< tamañoBloque; i++){
             if ((i % 2) == 0){
                 bloqueCodificado += bloque[i];
             }
             else
                 bloqueCodificado += bloque[i] == '1' ? '0' : '1';       //Invertir el valor usando operador ternario
+        }
     }
-}
-else if(cantCeros < cantUnos){
-    for (int i = 0, j = 1; i < tanañoBloque; i++){
-        if (j == 3){                //3 para modificar cada que se pasen 2 posiciones y se ubique en la tercera
+    else if(cantCeros < cantUnos){
+        for (int i = 0, j = 1; i < tamañoBloque; i++){
+            if (j == 3){                //3 para modificar cada que se pasen 2 posiciones y se ubique en la tercera
+                bloqueCodificado += bloque[i] == '1' ? '0' : '1';
+                j = 1;
+                }
+            else{
+                bloqueCodificado += bloque[i];
+                j++;
+                }
+            }
+        }
+    else{
+        for (int i = 0; i< tamañoBloque; i++){
             bloqueCodificado += bloque[i] == '1' ? '0' : '1';
-            j = 1;
         }
-        else{
-            bloqueCodificado += bloque[i];
-            j++;
+    }
+    return bloqueCodificado;
+}
+
+string bloqueDecodifMet1(string bin, int bloque){
+    int cantCeros = 0, cantUnos = 0;
+    string bloqueOrg, decodificado, decodificadoLetras;
+    int numBloques = bin.length()/bloque;
+    for (int bloqueNum = 0; bloqueNum< numBloques; bloqueNum++){        //bloqueNum: bloque Número...
+        string bloqueCodif = "";
+        for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
+            bloqueCodif += bin[j];
         }
-}
-}
-else{
-    for (int i = 0; i< tanañoBloque; i++){
-        bloqueCodificado += bloque[i] == '1' ? '0' : '1';
-}
-}
-return bloqueCodificado;
+        bloqueOrg = bloqueMet1(cantUnos, cantCeros, bloqueCodif);
+        cantCeros = 0, cantUnos = 0;
+        decodificado += bloqueOrg;
+        for (int indice = 0; indice < bloque; indice++){        //Conteo de 1 y 0 de la cadena
+            if (bloqueOrg[indice]== '1')
+                cantUnos += 1;
+            else
+                cantCeros += 1;
+        }
+    }
+    int cantBytes = decodificado.length() / 8;
+
+    for (int byte = 0; byte < cantBytes; byte++){
+        string binario = "";
+        for (int indice = (8*byte); indice < 8*(byte+1);indice++ ){
+            binario+= decodificado[indice];
+        }
+        char letra = binarioADecimal(binario);
+        decodificadoLetras += letra;
+    }
+    return decodificadoLetras;
 }
 
-string bloqueMet2(string bloque){
-    string bloqueCodificado;
-    int tamañoBloque = bloque.length();
-                       bloqueCodificado += bloque[tamañoBloque- 1];
-        for (int i = 0; i < (tamañoBloque - 1) ; i++){
-        bloqueCodificado += bloque[i];
-}
-return bloqueCodificado;
+
+int binarioADecimal(string arreglo){
+    int total = 0;
+    for (int i = 0; i <8; i++){
+        if(arreglo[i]=='1'){
+            total += potencia(2,7-i);
+        }
+    }
+    return total;
 }
 
-
-string bloqueDecodifMet2(string bloqueCodif){
-    string bloqueOrg;
-    int tamañoBloque = bloqueCodif.length();
-                       for (int indice = 1; indice < tamañoBloque; indice++){
-                       bloqueOrg += bloqueCodif[indice];
-}
-bloqueOrg += bloqueCodif[0];
-return bloqueOrg;
+int potencia(int num, int potencia){
+    int potenciaTotal = 1;
+    for (int j = 0; j < potencia ; j++){
+        potenciaTotal *= num;
+    }
+    return potenciaTotal;
 }

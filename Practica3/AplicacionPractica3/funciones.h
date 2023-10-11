@@ -12,11 +12,14 @@ void menuInicial();
 
 string decimalBinario(int caracter);
 string leer(string nombreEntrada);
+int leerUsuarios(string usuarios[]);
+
 void modificar(string contenido);
 string contenidoEnBinario(string contenido);
+string cadenaCodifMet1(string cadena);
 string bloqueMet1(int cantUnos, int cantCeros, string bloque);
-string bloqueMet2(string bloque);
-string bloqueDecodifMet2(string bloqueCodif);
+string bloqueDecodifMet1(string bin, int bloque);
 
-
+int binarioADecimal(string);
+int potencia(int, int);
 #endif // FUNCIONES_H

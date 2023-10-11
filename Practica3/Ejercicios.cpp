@@ -97,7 +97,7 @@ void ejercicio2(){
 
 */
     string decodificado, bin, bloqueOrg, bloqueCodif, decodificadoLetras;
-    int len = 0, bloque = 0, metodo = 0, numBloques, cantUnos = 0, cantCeros = 0 , cantBytes = 0;
+    int len = 0, bloque = 0, metodo = 0, numBloques, cantBytes = 0;
     bool bandera = false;
     bin = leer();
     len = bin.length();
@@ -124,25 +124,11 @@ void ejercicio2(){
                     cin >> metodo;
             switch (metodo) {
             case 1:
-                for (int bloqueNum = 0; bloqueNum< numBloques; bloqueNum++){        //bloqueNum: bloque Número...
-                    bloqueCodif = "";
-                    for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
-                        bloqueCodif += bin[j];
-                    }
-                    bloqueOrg = bloqueMet1(cantUnos, cantCeros, bloqueCodif);
-                    cantCeros = 0, cantUnos = 0;
-                    decodificado += bloqueOrg;
-                    for (int indice = 0; indice < bloque; indice++){        //Conteo de 1 y 0 de la cadena
-                        if (bloqueOrg[indice]== '1')
-                            cantUnos += 1;
-                        else
-                            cantCeros += 1;
-                    }
-                }
+            decodificado = bloqueDecodifMet1(bin,numBloques,bloque);
 
                 cantBytes = decodificado.length() / 8;
 
-                for (int byte = 0; byte < cantBytes; byte++){
+                for (int byte = 0; byte < cantBytes; byte++){       //mostrar el contennido como letras
                     string binario = "";
                     for (int indice = (8*byte); indice < 8*(byte+1);indice++ ){
                         binario+= decodificado[indice];
