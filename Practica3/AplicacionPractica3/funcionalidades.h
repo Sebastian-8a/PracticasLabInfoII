@@ -4,10 +4,13 @@
 #include <vector>
 
 void validarAdmin();
-void menuAdmin();
 
 void validarUser();
 
+
+void menuAdmin();
+
+int menuUser(int saldos);
 
 
 

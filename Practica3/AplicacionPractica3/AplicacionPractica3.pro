@@ -9,8 +9,7 @@ CONFIG += c++17 cmdline
 SOURCES += \
         funcionalidades.cpp \
         funciones.cpp \
-        main.cpp \
-        menus.cpp
+        main.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
