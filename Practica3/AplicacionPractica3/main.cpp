@@ -6,11 +6,11 @@
 
 int main(){
 
-    menuInicial();
+    //menuInicial();
     //validarAdmin();
     //validarUser();
 
-
+    cout << endl << stoi("-1234");
 
 
 //

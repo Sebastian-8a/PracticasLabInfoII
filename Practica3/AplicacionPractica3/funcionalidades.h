@@ -3,12 +3,12 @@
 #include "funciones.h"
 #include <vector>
 
-void validarAdmin();
+void validarAdmin(vector<string> cedulas, vector<string> claves, vector<int> saldos);
 
-void validarUser();
+void validarUser(vector<string> cedulas, vector<string> claves, vector<int> saldos);
 
 
-void menuAdmin();
+void menuAdmin(vector<string> cedulas, vector<string> claves, vector<int> saldos);
 
 int menuUser(int saldos);
 

@@ -18,7 +18,7 @@ void modificar(string contenido);
 string contenidoEnBinario(string contenido);
 string cadenaCodifMet1(string cadena);
 string bloqueMet1(int cantUnos, int cantCeros, string bloque);
-string bloqueDecodifMet1(string bin, int bloque);
+string bloqueDecodifMet1(string bin);
 
 int binarioADecimal(string);
 int potencia(int, int);

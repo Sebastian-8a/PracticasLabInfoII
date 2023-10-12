@@ -196,7 +196,8 @@ string bloqueMet1(int cantUnos, int cantCeros, string bloque){
     return bloqueCodificado;
 }
 
-string bloqueDecodifMet1(string bin, int bloque){
+string bloqueDecodifMet1(string bin ){
+    int bloque = 4;
     int cantCeros = 0, cantUnos = 0;
     string bloqueOrg, decodificado, decodificadoLetras;
     int numBloques = bin.length()/bloque;
