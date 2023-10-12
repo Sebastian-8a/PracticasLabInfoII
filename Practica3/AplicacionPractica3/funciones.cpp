@@ -101,26 +101,16 @@ int leerUsuarios(string usuarios[]){
 
 
 
-void modificar(string contenido){
-    string nombreSalida, formato;
-    bool estado = false;
-    int len = 0;
-    while (estado == false){
-        cout << endl<< "Ingrese el nombre del archivo donde se guardará la información: ";
-        cin >>nombreSalida;
-        len = nombreSalida.length();
-        for (int i = 4; i > 0; i --){           //4 a 0 para tomar las últimas 4 posiciones ".txt"
-            formato += nombreSalida[len -i];
-        }
-        if (formato == ".txt"){
-            ofstream archivo2(nombreSalida);
-            archivo2 << contenido;
-            estado = true;
-        }
-        else{
-            cout << endl<< "Formato erróneo, ingrese un .txt";
-        }
+void modificar(vector <string> cedulas,vector <string> claves, vector <int> saldos){
+    ofstream archivo2("usuarios.txt");
+    int len = claves.size();
+    for (int indice = 0; indice < len; indice++){
+        string saldo;
+        saldo = to_string(saldos[indice]);
+        saldo = cadenaCodifMet1(saldo);
+        archivo2 << cedulas[indice] << " " << claves[indice]<< " " << saldo << "\n";
     }
+    archivo2.close();
 }
 
 
@@ -247,3 +237,5 @@ int potencia(int num, int potencia){
     }
     return potenciaTotal;
 }
+
+

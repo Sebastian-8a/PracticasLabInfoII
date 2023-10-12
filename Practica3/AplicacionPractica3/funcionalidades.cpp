@@ -27,12 +27,14 @@ void menuInicial(){
         switch(opcion){
         case 1:
             validarAdmin(cedulas, claves,saldos);
+
             break;
         case 2:
             validarUser(cedulas, claves,saldos);
             break;
         case 3:
             system("cls");
+            modificar(cedulas,claves,saldos);
             cout << "\nHasta pronto.";
             break;
         default:
@@ -44,7 +46,7 @@ void menuInicial(){
 }
 
 
-void validarAdmin(vector<string> cedulas, vector<string> claves, vector<int> saldos){
+void validarAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &saldos){
     system("cls");
     string leido, ingresado;
     int opcion = 0;
@@ -81,7 +83,7 @@ void validarAdmin(vector<string> cedulas, vector<string> claves, vector<int> sal
 
 }
 
-void validarUser(vector<string> cedulas, vector<string> claves, vector<int> saldos){
+void validarUser(vector<string> &cedulas, vector<string> &claves, vector<int> &saldos){
     system("cls");
     int opcion = 0;
     string  cedulaIngresada, claveIngresada;
@@ -122,6 +124,7 @@ void validarUser(vector<string> cedulas, vector<string> claves, vector<int> sald
                     if (saldos[indice] >= 1000){
                         saldos[indice] -= 1000;
                         saldos[indice] = menuUser(saldos[indice]);
+                        opcion = 2;
                     }
                     else{
                         cout << "\nNo posee dinero suficiente para acceder\n";
@@ -150,7 +153,7 @@ void validarUser(vector<string> cedulas, vector<string> claves, vector<int> sald
 }
 
 
-void menuAdmin(vector<string> cedulas, vector<string> claves, vector<int> saldos){
+void menuAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &saldos){
     system("cls");
     int opcion = 0;
 
@@ -250,6 +253,7 @@ void menuAdmin(vector<string> cedulas, vector<string> claves, vector<int> saldos
             saldos.push_back(nueSaldo);
             break;
         case 2:         //acciones consignar dinero
+
             while(validacion != false){
                 string cedulaIngresada;
 
@@ -271,7 +275,31 @@ void menuAdmin(vector<string> cedulas, vector<string> claves, vector<int> saldos
                     cout << "\nCedula fuera de rango, recuerde son 10 caracteres numericos\n";
                 }
             }
-
+            while (validacion != true){
+                string saldoAñadir;
+                cout << "\nIngrese el saldo que desea añadirle al usuario: ";
+                cin>> saldoAñadir;
+                for (const char dato : saldoAñadir){
+                    if(isdigit(dato));
+                    else{
+                        validacion = true;
+                        break;
+                    }
+                }
+                if (validacion == true){
+                    cout << "\nIngrese unicamente valores numericos\n";
+                    validacion = false;
+                }
+                else{
+                    nueSaldo = stoi(saldoAñadir);
+                    if ( nueSaldo >= 0){
+                        validacion = true;
+                    }
+                    else{
+                        cout << "\nAsegurese de ingresar un valor de dinero positivo.\n";
+                    }
+                }
+            }
 
             saldos[indice] += nueSaldo;
             break;

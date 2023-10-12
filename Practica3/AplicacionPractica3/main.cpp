@@ -6,12 +6,10 @@
 
 int main(){
 
-    //menuInicial();
+    menuInicial();
     //validarAdmin();
     //validarUser();
-
-    cout << endl << stoi("-1234");
-
+    //cout << endl << to_string(234);
 
 //
     return  0;
