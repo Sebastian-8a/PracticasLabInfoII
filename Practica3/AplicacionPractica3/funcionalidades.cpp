@@ -10,7 +10,7 @@ void menuInicial(){
         cantUsuarios = leerUsuarios(usuarios);
         for(int i = 0; i < cantUsuarios ; i++){
             int len = usuarios[i].length();
-            cedulas.push_back(usuarios[i].substr (0,10)) ;
+            cedulas.push_back(usuarios[i].substr(0,10));
             claves.push_back(usuarios[i].substr(11,32));
             saldoCodif = (usuarios[i].substr(44, (len - 44)));
             saldoCodif = bloqueDecodifMet1(saldoCodif);
@@ -26,15 +26,15 @@ void menuInicial(){
         cin >> opcion;
         switch(opcion){
         case 1:
-            validarAdmin(cedulas, claves,saldos);
-
+            validarAdmin(cedulas,claves,saldos);
+            modificar(cedulas,claves,saldos);
             break;
         case 2:
-            validarUser(cedulas, claves,saldos);
+            validarUser(cedulas,claves,saldos);
+            modificar(cedulas,claves,saldos);
             break;
         case 3:
             system("cls");
-            modificar(cedulas,claves,saldos);
             cout << "\nHasta pronto.";
             break;
         default:
@@ -60,16 +60,16 @@ void validarAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &
         cin>> opcion;
         switch(opcion){
         case 1:
-            cout << "Ingrese la clave: ";
-            cin >> ingresado;
-            ingresado = cadenaCodifMet1(ingresado);
-            if (ingresado == leido){
-                menuAdmin(cedulas, claves, saldos);
-                opcion = 2;
-            }
-            else{
-                cout << "Clave erronea\n";
-            }
+                cout << "Ingrese la clave: ";
+                cin >> ingresado;
+                ingresado = cadenaCodifMet1(ingresado);
+                if (ingresado == leido){
+                    menuAdmin(cedulas, claves, saldos);
+                    opcion = 2;
+                }
+                else{
+                    cout << "Clave erronea\n";
+                }
             break;
         case 2:
             system("cls");
@@ -224,6 +224,7 @@ void menuAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &sal
                     cout << "\nClave fuera de rango (recuerde son 4 digitos numéricos)\n";
                 }
             }
+            nueClave = cadenaCodifMet1(nueClave);
             claves.push_back(nueClave);
             while(validacion != false){
                 string nueSaldoStr;
@@ -318,8 +319,9 @@ void menuAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &sal
 
 
 int menuUser(int saldo){
-    int opcion = 0;
-    unsigned int montoRetirar = 0;
+    int opcion = 0, monto = 0;
+    bool validacion = false;
+    string montoRetirar;
     while (opcion != 3){
         cout <<"\nIngrese una opcion."
                 "\n1. Consultar el saldo."
@@ -332,9 +334,30 @@ int menuUser(int saldo){
             cout << "\nSu saldo actual es: " << saldo <<endl ;
             break;
         case 2:
-            cout << "\nIngrese la cantidad de dinero que desea retirar: ";
-            cin >> montoRetirar;
-            saldo -= montoRetirar;
+            validacion = false;
+            while (validacion != true){
+                cout << "\nIngrese la cantidad de dinero que desea retirar: ";
+                cin >> montoRetirar;
+                for (const char digito : montoRetirar){
+                    if (isalpha(digito)){
+                        cout << endl << "Ingrese únicamente dígitos numéricos. \n";
+                        validacion = true;
+                        break;
+                    }
+                }
+                if (validacion == true){
+                    validacion = false;
+                }
+                else {
+                    monto =stoi(montoRetirar);
+                    if (monto > saldo){
+                        cout << "\nNo posee esa cantidad de dionero en su cuenta.\n";
+                    }
+                    else validacion = true;
+                }
+            }
+
+            saldo -= monto;
             break;
         case 3:
             system("cls");

@@ -108,7 +108,10 @@ void modificar(vector <string> cedulas,vector <string> claves, vector <int> sald
         string saldo;
         saldo = to_string(saldos[indice]);
         saldo = cadenaCodifMet1(saldo);
-        archivo2 << cedulas[indice] << " " << claves[indice]<< " " << saldo << "\n";
+        archivo2 << cedulas[indice] << " " << claves[indice]<< " " << saldo;
+        if (indice < (len -1)){
+            archivo2 << "\n";
+        }
     }
     archivo2.close();
 }

@@ -200,25 +200,34 @@ int potencia(int num, int potencia){
 
 
 
-string cadenaCodifMet1(string cadena){
-    int bloque = 4, numBloques, cantCeros = 0, cantUnos = 0 ;
-    string bloqueOrg, codificado,bin;
-    bin = contenidoEnBinario(cadena);
-    numBloques = bin.length() / bloque;
+string cadenaCodifMet1(string bin){
+        int cantCeros = 0, cantUnos = 0, bloque = 4;
+        string bloqueOrg, decodificado, decodificadoLetras;
+        int numBloques = bin.length()/bloque;
+        for (int bloqueNum = 0; bloqueNum< numBloques; bloqueNum++){        //bloqueNum: bloque Número...
+            string bloqueCodif = "";
+            for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
+                bloqueCodif += bin[j];
+            }
+            bloqueOrg = bloqueMet1(cantUnos, cantCeros, bloqueCodif);
+            cantCeros = 0, cantUnos = 0;
+            decodificado += bloqueOrg;
+            for (int indice = 0; indice < bloque; indice++){        //Conteo de 1 y 0 de la cadena
+                if (bloqueOrg[indice]== '1')
+                    cantUnos += 1;
+                else
+                    cantCeros += 1;
+            }
+        }
+        int cantBytes = decodificado.length() / 8;
 
-    for (int bloqueNum = 0; bloqueNum< numBloques; bloqueNum++){        //bloqueNum: bloque Número...
-        bloqueOrg = "";
-        for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
-            bloqueOrg += bin[j];
+        for (int byte = 0; byte < cantBytes; byte++){
+            string binario = "";
+            for (int indice = (8*byte); indice < 8*(byte+1);indice++ ){
+                binario+= decodificado[indice];
+            }
+            char letra = binarioADecimal(binario);
+            decodificadoLetras += letra;
         }
-        codificado += bloqueMet1(cantUnos,cantCeros,bloqueOrg);
-        cantCeros = 0, cantUnos = 0;
-        for (int indice = 0; indice < bloque; indice++){        //Conteo de 1 y 0 de la cadena
-            if (bloqueOrg[indice]== '1')
-                cantUnos += 1;
-            else
-                cantCeros += 1;
-        }
-    }
-    return codificado;
+        return decodificadoLetras;
 }
