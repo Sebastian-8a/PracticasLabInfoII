@@ -17,18 +17,22 @@ class Enrutador {
 
 private:
     mapa conexionesVecinas;
-    mapa tablaEnrutamiento;
 public:
     Enrutador();
     void agregarRuta(const char enrutador, const int costo);
     void eliminarRuta(const char enrutador);
-    void mostrarCosto(char enrutador);
+    void mostrarCosto(const char enrutador);
     /*
     mapa getConexionesVecinas() const;
     void setConexionesVecinas(const mapa &newConexionesVecinas);*/
 };
 
+struct TablaEnrutamiento{
+    map<char,mapa> rutas;
 
+    void setRuta(const mapa enrutador);
+    void mostrarRutas();
+};
 
 
 void leer(vector<string> &datos);
