@@ -53,6 +53,7 @@ Enrutador::Enrutador(){}
 
 
 
+
 void TablaEnrutamiento::setRuta(mapa enrutador){
     rutas.push_back(enrutador);
 
@@ -65,6 +66,21 @@ void TablaEnrutamiento::mostrarRutas(){
         }
         //cout << endl << "Nombre Enrutador: "<< ruta.first;
 
+    }
+}
+
+
+
+void tablaEnrutamiento::setRuta(const string router, mapa enrutador){
+    rutas[router] = enrutador;
+}
+
+void tablaEnrutamiento::mostrarRutas(){
+    for (const auto &ruta: rutas){
+        cout << endl << "Enrutador: " << ruta.first;
+        for (const auto &enlace : ruta.second){
+            cout << " ->" << enlace.first << " por: " << enlace.second;
+        }
     }
 }
 

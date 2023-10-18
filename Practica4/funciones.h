@@ -7,6 +7,8 @@
 #include <map>
 #include <vector>
 
+
+
 using namespace std;
 
 typedef map<char,int> mapa;
@@ -23,6 +25,8 @@ public:
     void eliminarRuta(const char enrutador);
     void mostrarCosto(const char enrutador);
     mapa retornarConexionesVecinas() const;
+
+
     /*
     mapa getConexionesVecinas() const;
     void setConexionesVecinas(const mapa &newConexionesVecinas);*/
@@ -37,7 +41,12 @@ struct TablaEnrutamiento{
 
 void leer(vector<string> &datos);
 
+struct tablaEnrutamiento{
+    map<string,mapa> rutas;
+    void setRuta(const string router, const mapa enrutador);
+    void mostrarRutas();
 
+};
 
 
 
