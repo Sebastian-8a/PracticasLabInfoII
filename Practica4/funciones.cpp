@@ -45,21 +45,26 @@ void Enrutador::mostrarCosto(char enrutador){
     }
 }
 
+mapa Enrutador::retornarConexionesVecinas() const{
+    return conexionesVecinas;
+}
+
 Enrutador::Enrutador(){}
 
 
 
 void TablaEnrutamiento::setRuta(mapa enrutador){
-    rutas['A'] = enrutador;
+    rutas.push_back(enrutador);
+
 }
 
 void TablaEnrutamiento::mostrarRutas(){
     for (const auto &ruta: rutas){
-        cout << endl << "Ruta N "<< ruta.first;
-        for (const auto & caminos : ruta.second){
-            cout << endl << "Enrutador: " << caminos.first << " Costo: " << caminos.second;
-
+        for (const auto objeto : ruta){
+            cout << endl<< "Enrutador: "<< objeto.first << " Costo " << objeto.second;
         }
+        //cout << endl << "Nombre Enrutador: "<< ruta.first;
+
     }
 }
 
