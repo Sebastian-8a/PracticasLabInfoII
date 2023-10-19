@@ -1,34 +1,32 @@
 #include "funciones.h"
 
-void leer(vector<string> &datos){
-    ifstream archivo;
-    try {
-        archivo.open("Conexiones.txt", ios::in);
-        if (!archivo.is_open()){
-            throw 1;
-        }
-    } catch (int num) {
-        if (num == 1){
-            cout << "\nFalla al abrir el archivo\n";
-            return;
-        }
 
-    }
-
-    while(!archivo.eof()){
-        string temp;
-        getline(archivo,temp,'\n');
-        datos.push_back(temp);
-    }
-    archivo.close();
+Enrutador::Enrutador(){
+    conexionesVecinas['A'] = -1;
+    conexionesVecinas['B'] = -1;
+    conexionesVecinas['C'] = -1;
+    conexionesVecinas['D'] = -1;
+    nombre = ' ';
 }
 
+Enrutador::Enrutador(string nom){
+    conexionesVecinas['A'] = -1;
+    conexionesVecinas['B'] = -1;
+    conexionesVecinas['C'] = -1;
+    conexionesVecinas['D'] = -1;
+    nombre = nom[0];
+    conexionesVecinas[nom[0]] = 0;
+}
 
+void Enrutador::setNombre(string nombreClase){
+    nombre = nombreClase[0];
+}
 
+char Enrutador::getNombre() const {
+    return nombre;
+}
 
-
-
-void Enrutador::agregarRuta(const char enrutador, const int costo ){
+void Enrutador::agregarRuta(char enrutador, int costo){
     conexionesVecinas[enrutador] = costo;
 }
 
@@ -38,7 +36,7 @@ void Enrutador::eliminarRuta(const char enrutador){
 
 void Enrutador::mostrarCosto(char enrutador){
     try{
-        cout << endl << conexionesVecinas.at(enrutador);
+        cout << endl << "El costo al enrutador: "<< enrutador << " es "<< conexionesVecinas.at(enrutador);
     }catch(const exception &e){
         cout << endl<< "No se ha encontrado el enrutador";
         return;
@@ -49,38 +47,40 @@ mapa Enrutador::retornarConexionesVecinas() const{
     return conexionesVecinas;
 }
 
-Enrutador::Enrutador(){}
 
 
 
 
-void TablaEnrutamiento::setRuta(mapa enrutador){
-    rutas.push_back(enrutador);
 
+/*
+void TablaEnrutamiento::setRuta(string clave,mapa enrutador){
+    rutas[clave[0]] = enrutador;
+
+}*/
+
+void TablaEnrutamiento::setRutas(string clave, mapa conexiones){
+    rutas[clave[0]] = conexiones;
 }
 
 void TablaEnrutamiento::mostrarRutas(){
+    cout << " ";
     for (const auto &ruta: rutas){
-        for (const auto objeto : ruta){
-            cout << endl<< "Enrutador: "<< objeto.first << " Costo " << objeto.second;
-        }
-        //cout << endl << "Nombre Enrutador: "<< ruta.first;
-
+        cout << "   " << ruta.first;
     }
-}
-
-
-
-void tablaEnrutamiento::setRuta(const string router, mapa enrutador){
-    rutas[router] = enrutador;
-}
-
-void tablaEnrutamiento::mostrarRutas(){
     for (const auto &ruta: rutas){
-        cout << endl << "Enrutador: " << ruta.first;
-        for (const auto &enlace : ruta.second){
-            cout << " ->" << enlace.first << " por: " << enlace.second;
+
+        cout << endl << ruta.first << " ";
+        for (const auto objeto : ruta.second){
+            int lenObjt = ((objeto.second >= 10)|| (objeto.second < 0)) ? 2:1 ;
+            if (lenObjt == 2){
+                cout<< " "<< objeto.second << " ";
+            }
+            else cout<< "  "<< objeto.second << " ";
+
         }
     }
 }
+
+
+
 

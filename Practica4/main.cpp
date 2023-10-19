@@ -1,30 +1,35 @@
 #include "funciones.h"
-#define quote(x) #x         //Macro
+
 
 int main() {
-    tablaEnrutamiento rut;
-    Enrutador A, B, C, D;
-    A.agregarRuta('B',4); A.agregarRuta('C',10);A.agregarRuta('A',0);
-    B.agregarRuta('A',4); B.agregarRuta('D',1);B.agregarRuta('B',0);
-    C.agregarRuta('A',10);C.agregarRuta('D',2);C.agregarRuta('C',0);
-    D.agregarRuta('C',2);D.agregarRuta('B',1);D.agregarRuta('D',0);
+    TablaEnrutamiento rut;
+    Enrutador A(quote(A)),B(quote(B)),C(quote(C)),D(quote(D));                  //4 enrutadores por defecto, en caso de desear más, se debe crear manualmente
+    //list<Enrutador> enrutadores = {A,B,C,D};
+
+    A.agregarRuta('B',4); A.agregarRuta('C',10);
+    B.agregarRuta('A',4); B.agregarRuta('D',1);
+    C.agregarRuta('A',10);C.agregarRuta('D',2);
+    D.agregarRuta('C',2);D.agregarRuta('B',1);
+
+    rut.setRutas(quote(A),A.retornarConexionesVecinas());
+    rut.setRutas(quote(B),B.retornarConexionesVecinas());
+    rut.setRutas(quote(C),C.retornarConexionesVecinas());
+    rut.setRutas(quote(D),D.retornarConexionesVecinas());
 
 
-    rut.setRuta(quote(A),A.retornarConexionesVecinas());
-    rut.setRuta(quote(B),B.retornarConexionesVecinas());
-    rut.setRuta(quote(C),C.retornarConexionesVecinas());
-    rut.setRuta(quote(D),D.retornarConexionesVecinas());
+
+
     rut.mostrarRutas();
-
-
-
-
-
 
 
 
     /*
 
+    rut.setRuta((quote(A)),A.retornarConexionesVecinas());
+    rut.setRuta((quote(B)),B.retornarConexionesVecinas());
+    rut.setRuta((quote(C)),C.retornarConexionesVecinas());
+    rut.setRuta((quote(D)),D.retornarConexionesVecinas());
+    rut.mostrarRutas();
 
 
 
