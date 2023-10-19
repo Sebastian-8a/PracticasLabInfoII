@@ -52,23 +52,29 @@ mapa Enrutador::retornarConexionesVecinas() const{
 
 
 
-/*
-void TablaEnrutamiento::setRuta(string clave,mapa enrutador){
-    rutas[clave[0]] = enrutador;
 
-}*/
-
-void TablaEnrutamiento::setRutas(string clave, mapa conexiones){
-    rutas[clave[0]] = conexiones;
+void TablaEnrutamiento::setRuta(mapa conexiones){
+    rutas.push_back(conexiones);
 }
 
 void TablaEnrutamiento::mostrarRutas(){
+    //list<mapa>:: iterator mapas;
     cout << " ";
-    for (const auto &ruta: rutas){
-        cout << "   " << ruta.first;
+    for (char i = 'A'; i < 'E'; i++){
+        cout << "   " << i;
     }
-    for (const auto &ruta: rutas){
+    char enrutador = 'A';
+    for (auto  i:rutas){
 
+        cout << endl << enrutador << " ";
+        enrutador ++;
+        for (auto  objeto: i){
+            int lenObjt = ((objeto.second >= 10)|| (objeto.second < 0)) ? 2:1 ;
+            if (lenObjt == 2){
+                cout<< " "<< objeto.second << " ";
+            }
+            else cout<< "  "<< objeto.second << " ";
+        }/*
         cout << endl << ruta.first << " ";
         for (const auto objeto : ruta.second){
             int lenObjt = ((objeto.second >= 10)|| (objeto.second < 0)) ? 2:1 ;
@@ -77,7 +83,7 @@ void TablaEnrutamiento::mostrarRutas(){
             }
             else cout<< "  "<< objeto.second << " ";
 
-        }
+        }*/
     }
 }
 

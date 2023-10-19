@@ -36,13 +36,13 @@ public:
 
 class TablaEnrutamiento{
 private:
-    map<char,mapa> rutas;
+    list<mapa> rutas;
 
 public:
     TablaEnrutamiento(){};
-    void setRutas(string clave, mapa conexiones);
-    void setRuta(const string clave,const mapa enrutador);
+    void setRuta(mapa conexiones);
     void mostrarRutas();
+    void mejorCamino();
 };
 
 

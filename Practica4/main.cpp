@@ -11,10 +11,10 @@ int main() {
     C.agregarRuta('A',10);C.agregarRuta('D',2);
     D.agregarRuta('C',2);D.agregarRuta('B',1);
 
-    rut.setRutas(quote(A),A.retornarConexionesVecinas());
-    rut.setRutas(quote(B),B.retornarConexionesVecinas());
-    rut.setRutas(quote(C),C.retornarConexionesVecinas());
-    rut.setRutas(quote(D),D.retornarConexionesVecinas());
+    rut.setRuta(A.retornarConexionesVecinas());
+    rut.setRuta(B.retornarConexionesVecinas());
+    rut.setRuta(C.retornarConexionesVecinas());
+    rut.setRuta(D.retornarConexionesVecinas());
 
 
 
