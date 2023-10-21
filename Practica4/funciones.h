@@ -1,20 +1,18 @@
 #ifndef FUNCIONES_H
 #define FUNCIONES_H
 #include <iostream>
-#include <fstream>
-#include <sstream>
 #include <string>
 #include <map>
-#include <vector>
 #include <list>
-
+#include <queue>
 
 #define quote(nombreClase) #nombreClase         //Macro
+const int INF = INT_MAX; // Valor para representar la distancia infinita
 
 using namespace std;
 
-
 typedef map<char,int> mapa;
+
 
 //Clase Enrutador
 class Enrutador {
@@ -46,6 +44,18 @@ public:
 };
 
 
+
+// Estructura para representar una conexión entre enrutadores
+struct Connection {
+    int to = 0;      // Nodo de destino
+    int weight = 0;  // Peso de la conexión
+    Connection(int t, int w) : to(t), weight(w) {}
+};
+
+// Estructura para representar un enrutador y sus conexiones
+struct Router {
+    vector<Connection> connections;
+};
 
 
 

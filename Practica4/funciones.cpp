@@ -64,7 +64,7 @@ void TablaEnrutamiento::mostrarRutas(){
         cout << "   " << i;
     }
     char enrutador = 'A';
-    for (auto  i:rutas){
+    for (auto &i:rutas){
 
         cout << endl << enrutador << " ";
         enrutador ++;
@@ -74,19 +74,12 @@ void TablaEnrutamiento::mostrarRutas(){
                 cout<< " "<< objeto.second << " ";
             }
             else cout<< "  "<< objeto.second << " ";
-        }/*
-        cout << endl << ruta.first << " ";
-        for (const auto objeto : ruta.second){
-            int lenObjt = ((objeto.second >= 10)|| (objeto.second < 0)) ? 2:1 ;
-            if (lenObjt == 2){
-                cout<< " "<< objeto.second << " ";
-            }
-            else cout<< "  "<< objeto.second << " ";
-
-        }*/
+        }
     }
 }
 
+void agregarEnlace(){
 
+}
 
 
