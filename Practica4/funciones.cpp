@@ -53,18 +53,18 @@ mapa Enrutador::retornarConexionesVecinas() const{
 
 
 
-void TablaEnrutamiento::setRuta(mapa conexiones){
-    rutas.push_back(conexiones);
+void TablaEnrutamiento::setEnrutador(mapa conexiones){
+    enrutadores.push_back(conexiones);
 }
 
-void TablaEnrutamiento::mostrarRutas(){
+void TablaEnrutamiento::mostrarEnrutadores(){
     //list<mapa>:: iterator mapas;
     cout << " ";
     for (char i = 'A'; i < 'E'; i++){
         cout << "   " << i;
     }
     char enrutador = 'A';
-    for (auto &i:rutas){
+    for (auto &i: enrutadores){
 
         cout << endl << enrutador << " ";
         enrutador ++;

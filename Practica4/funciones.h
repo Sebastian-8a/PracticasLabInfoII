@@ -34,12 +34,12 @@ public:
 
 class TablaEnrutamiento{
 private:
-    list<mapa> rutas;
+    vector<mapa> enrutadores;
 
 public:
     TablaEnrutamiento(){};
-    void setRuta(mapa conexiones);
-    void mostrarRutas();
+    void setEnrutador(mapa enrutador);
+    void mostrarEnrutadores();
     void mejorCamino();
 };
 
@@ -47,9 +47,9 @@ public:
 
 // Estructura para representar una conexión entre enrutadores
 struct Connection {
-    int to = 0;      // Nodo de destino
+    char to = ' ';      // Nodo de destino
     int weight = 0;  // Peso de la conexión
-    Connection(int t, int w) : to(t), weight(w) {}
+    Connection(char t, int w) : to(t), weight(w) {}
 };
 
 // Estructura para representar un enrutador y sus conexiones

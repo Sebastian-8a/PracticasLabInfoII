@@ -4,7 +4,7 @@
 #include <climits>
 #include "funciones.h"
 
-
+/*
 
 
 // Función para encontrar el camino más corto utilizando el algoritmo de Dijkstra
@@ -21,7 +21,7 @@ void dijkstra(vector<Router>& graph, int start) {
     u: elemento que se encuentra como el mayor en pq y segundo elemento del par
     start:Enrutador al que le quiero encontrar los caminos más cortos
 
-    */
+
     int n = graph.size();
     vector<int> distance(n, INF); // Distancias iniciales a todos los nodos como infinito
     vector<bool> processed(n, false);       //Vector de n elementos, todos falsos
@@ -42,7 +42,7 @@ void dijkstra(vector<Router>& graph, int start) {
             /*
             v: hacia quién me enlazo
             weight: costo del enlace
-            */
+
             int v = conn.to;
             int weight = conn.weight;
 
@@ -78,9 +78,9 @@ int main() {
 
     return 0;
 }
+*/
 
 
-/*
 
 int main() {
     TablaEnrutamiento rut;
@@ -92,13 +92,13 @@ int main() {
     C.agregarRuta('A',10);C.agregarRuta('D',2);
     D.agregarRuta('C',2);D.agregarRuta('B',1);
 
-    rut.setRuta(A.retornarConexionesVecinas());
-    rut.setRuta(B.retornarConexionesVecinas());
-    rut.setRuta(C.retornarConexionesVecinas());
-    rut.setRuta(D.retornarConexionesVecinas());
+    rut.setEnrutador(A.retornarConexionesVecinas());
+    rut.setEnrutador(B.retornarConexionesVecinas());
+    rut.setEnrutador(C.retornarConexionesVecinas());
+    rut.setEnrutador(D.retornarConexionesVecinas());
 
 
-    rut.mostrarRutas();
+    rut.mostrarEnrutadores();
 
 
 
@@ -117,5 +117,5 @@ int main() {
 
     return 0;
 }
-*/
+
 
