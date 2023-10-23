@@ -45,18 +45,6 @@ public:
 
 
 
-// Estructura para representar una conexión entre enrutadores
-struct Connection {
-    char to = ' ';      // Nodo de destino
-    int weight = 0;  // Peso de la conexión
-    Connection(char t, int w) : to(t), weight(w) {}
-};
-
-// Estructura para representar un enrutador y sus conexiones
-struct Router {
-    vector<Connection> connections;
-};
-
 
 
 #endif // FUNCIONES_H

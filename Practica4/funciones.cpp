@@ -58,14 +58,12 @@ void TablaEnrutamiento::setEnrutador(mapa conexiones){
 }
 
 void TablaEnrutamiento::mostrarEnrutadores(){
-    //list<mapa>:: iterator mapas;
     cout << " ";
     for (char i = 'A'; i < 'E'; i++){
         cout << "   " << i;
     }
     char enrutador = 'A';
     for (auto &i: enrutadores){
-
         cout << endl << enrutador << " ";
         enrutador ++;
         for (auto  objeto: i){
