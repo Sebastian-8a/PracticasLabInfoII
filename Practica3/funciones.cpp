@@ -140,7 +140,7 @@ string bloqueMet1(int cantUnos, int cantCeros, string bloque){
 string bloqueMet2(string bloque){
     string bloqueCodificado;
     int tamañoBloque = bloque.length();
-    bloqueCodificado += bloque[tamañoBloque- 1];
+    bloqueCodificado += bloque[tamañoBloque- 1];        //Última posición pasa a ser la primera
     for (int i = 0; i < (tamañoBloque - 1) ; i++){
         bloqueCodificado += bloque[i];
     }

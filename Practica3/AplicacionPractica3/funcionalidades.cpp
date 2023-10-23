@@ -1,6 +1,9 @@
 #include "funcionalidades.h"
 
 void menuInicial(){
+    /*
+    Se hace uso de indexación para la correspondencia de datos entre cedulas, claves y el saldo
+    */
     int opcion = 0;
     while (opcion !=3) {
         vector<string> cedulas, claves;
@@ -8,12 +11,12 @@ void menuInicial(){
         int cantUsuarios = 0 ;
         string *usuarios= new string [5], saldoCodif;       //Número máximo de usuarios (puede ser modificado)
         cantUsuarios = leerUsuarios(usuarios);
-        for(int i = 0; i < cantUsuarios ; i++){
+        for(int i = 0; i < cantUsuarios ; i++){         //anexo de valores de usuarios a los vectores
             int len = usuarios[i].length();
             cedulas.push_back(usuarios[i].substr(0,10));
             claves.push_back(usuarios[i].substr(11,32));
             saldoCodif = (usuarios[i].substr(44, (len - 44)));
-            saldoCodif = bloqueDecodifMet1(saldoCodif);
+            saldoCodif = bloqueDecodifMet1(saldoCodif);         //Decodificación del saldo y almacenamiento en el vector
             saldos.push_back(stoi(saldoCodif));
         }
         delete[] usuarios;
@@ -47,11 +50,14 @@ void menuInicial(){
 
 
 void validarAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &saldos){
+    /*
+    Paso por referencia de los vectores cedulas, claves y saldos
+    leido: contraseña que se encuentra en archivo de texto y se encuentra codificada
+*/
     system("cls");
     string leido, ingresado;
     int opcion = 0;
     leido = leer("sudo.txt");
-    //clave = bloqueDecodifMet1(leido,4);
     while (opcion != 2){
         cout <<"\nIngrese una opcion."
                 "\n1. Clave."
@@ -62,7 +68,7 @@ void validarAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &
         case 1:
                 cout << "Ingrese la clave: ";
                 cin >> ingresado;
-                ingresado = cadenaCodifMet1(ingresado);
+                ingresado = cadenaCodifMet1(ingresado);         //Codificación para comprobar que sea válida
                 if (ingresado == leido){
                     menuAdmin(cedulas, claves, saldos);
                     opcion = 2;
@@ -154,9 +160,11 @@ void validarUser(vector<string> &cedulas, vector<string> &claves, vector<int> &s
 
 
 void menuAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &saldos){
+    /*
+    Paso por referencia de los vectores cedulas, claves y saldos
+    */
     system("cls");
     int opcion = 0;
-
     while(opcion !=3){
         string nueCedula, nueClave;
         int nueSaldo = 0, indice = 0;
@@ -173,10 +181,10 @@ void menuAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &sal
             while(validacion != false){
                 validacion = false;
                 cout << "\nIngrese la cedula (10 digitos numericos): ";
-                cin>> nueCedula;              //Si hay tiempo validar que sean caracteres numericos
-                if (nueCedula.length() == 10){
+                cin>> nueCedula;
+                if (nueCedula.length() == 10){          //Validación de longitud apropiada
                     for (const auto & cedula : cedulas){
-                        if (cedula == nueCedula){
+                        if (cedula == nueCedula){       //Validación de existencia de la cédula
                             validacion = true;
                             break;
                         }
@@ -185,7 +193,7 @@ void menuAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &sal
                         cout << "\nSe ha encontrado un usuario con la cédula ingresada\n";
                     }
                     else{
-                        for (const char caracter : nueCedula){
+                        for (const char caracter : nueCedula){      //Validación de que la cedula sean únicamente numericos
                             if(isdigit(caracter));
                             else{
                                 cout << "\nIngrese unicamente caracteres numericos";
@@ -204,8 +212,8 @@ void menuAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &sal
             while(validacion != true){
                 cout << "\nIngrese su clave (4 digitos numericos): ";
                 cin >> nueClave;
-                if (nueClave.length() == 4){
-                    for (const char & esNum : nueClave){
+                if (nueClave.length() == 4){            //Validación de longitud
+                    for (const char & esNum : nueClave){        //Validación de que los caracteres ingresados sean digitos
                         if (isdigit(esNum));
                         else{
                             validacion = true;
@@ -224,14 +232,14 @@ void menuAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &sal
                     cout << "\nClave fuera de rango (recuerde son 4 digitos numéricos)\n";
                 }
             }
-            nueClave = cadenaCodifMet1(nueClave);
+            nueClave = cadenaCodifMet1(nueClave);       //Codificación clave ingresada y validada
             claves.push_back(nueClave);
             while(validacion != false){
                 string nueSaldoStr;
                 cout << "\nIngrese el saldo del usuario: ";
                 cin >> nueSaldoStr;
                 for (const char dato : nueSaldoStr){
-                    if (isdigit(dato));
+                    if (isdigit(dato));         //Validación de que se ingresen caracteres numericos
                     else{
                         validacion = false;
                         break;
@@ -243,7 +251,7 @@ void menuAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &sal
                 }
                 else{
                     nueSaldo = stoi(nueSaldoStr);
-                    if ( nueSaldo >= 0){
+                    if ( nueSaldo >= 0){        //Validación de que se ingrese un salo favorable
                         validacion = false;
                     }
                     else{
@@ -259,9 +267,9 @@ void menuAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &sal
                 string cedulaIngresada;
 
                 cout << "\nIngrese la cedula (10 digitos numericos): ";
-                cin>> cedulaIngresada;              //Si hay tiempo validar que sean caracteres numericos
-                if (cedulaIngresada.length() == 10){
-                    for (const auto & cedula : cedulas){
+                cin>> cedulaIngresada;
+                if (cedulaIngresada.length() == 10){        //Validación de longitud
+                    for (const auto & cedula : cedulas){        //Validación de exitencia de la cedula ingresada
                         if (cedula == cedulaIngresada){
                             validacion = false;
                             break;
@@ -281,7 +289,7 @@ void menuAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &sal
                 cout << "\nIngrese el saldo que desea añadirle al usuario: ";
                 cin>> saldoAñadir;
                 for (const char dato : saldoAñadir){
-                    if(isdigit(dato));
+                    if(isdigit(dato));      //Validación de tipo de dato
                     else{
                         validacion = true;
                         break;
@@ -293,7 +301,7 @@ void menuAdmin(vector<string> &cedulas, vector<string> &claves, vector<int> &sal
                 }
                 else{
                     nueSaldo = stoi(saldoAñadir);
-                    if ( nueSaldo >= 0){
+                    if ( nueSaldo >= 0){        //Validación de saldo favorable
                         validacion = true;
                     }
                     else{

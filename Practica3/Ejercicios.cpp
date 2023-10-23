@@ -89,13 +89,7 @@ variables:
 }
 
 void ejercicio2(){
-/*
 
-
-
-
-
-*/
     string decodificado, bin, bloqueOrg, bloqueCodif, decodificadoLetras;
     int len = 0, bloque = 0, metodo = 0, numBloques, cantBytes = 0;
     bool bandera = false;

@@ -34,6 +34,10 @@ en este caso se ingresa un caracter de tipo char
 
 
 string leer(string nombreEntrada){
+    /*
+    Función que se encarga de realizar la lectura de un archivo el cual se ingrese su nombre como
+    parámetro
+*/
     string lineas, temp ;
     ifstream archivo;         //Instancia de la clase iftream (lectura) para representar el archivo
     bool estado = false;
@@ -41,7 +45,7 @@ string leer(string nombreEntrada){
         try{
             archivo.open(nombreEntrada, ios::in);  //Abrir el archivo para lectura
             if (!archivo.is_open()) {
-                throw 1;   //Exit the program with an error code         evaluar try / except
+                throw 1;            //evaluar try / except
             }
 
             //Leer por linea
@@ -65,6 +69,10 @@ string leer(string nombreEntrada){
 }
 
 int leerUsuarios(string usuarios[]){
+    /*
+    función que retorna la cantidad de usuarios que es la cantdiad de lineas en el archivo
+    cada linea se pasa por referencia a un arreglo externo donde se almacenarán los datos
+*/
     string lineas, temp;
     ifstream archivo;
     int cantUser = 0;
@@ -102,13 +110,16 @@ int leerUsuarios(string usuarios[]){
 
 
 void modificar(vector <string> cedulas,vector <string> claves, vector <int> saldos){
+    /*
+    Paso de los vectores cedulas, claves (codificadas) y saldos (decodificado)
+    */
     ofstream archivo2("usuarios.txt");
     int len = claves.size();
     for (int indice = 0; indice < len; indice++){
         string saldo;
         saldo = to_string(saldos[indice]);
-        saldo = cadenaCodifMet1(saldo);
-        archivo2 << cedulas[indice] << " " << claves[indice]<< " " << saldo;
+        saldo = cadenaCodifMet1(saldo);         //codificación de saldo
+        archivo2 << cedulas[indice] << " " << claves[indice]<< " " << saldo;        //Paso bajo el formato adoptado
         if (indice < (len -1)){
             archivo2 << "\n";
         }
@@ -134,6 +145,11 @@ que por cada 8 caracteres contiguos, esto representará un byte / caracter de la
 
 
 string cadenaCodifMet1(string cadena){
+    /*
+    Se adopta el método de codificación número 1 donde cada bloque tendrá de tamaño 4.
+    Ejecución repetitiva del método de codificación número 1 hasta que la totalidad de la cadena quede
+    codificada.
+    */
     int bloque = 4, numBloques, cantCeros = 0, cantUnos = 0 ;
     string bloqueOrg, codificado,bin;
     bin = contenidoEnBinario(cadena);
@@ -161,7 +177,7 @@ string bloqueMet1(int cantUnos, int cantCeros, string bloque){
     string bloqueCodificado;
     int tamañoBloque = bloque.length();
     if (cantCeros > cantUnos){
-        for (int i = 0; i< tamañoBloque; i++){
+        for (int i = 0; i< tamañoBloque; i++){      //"Uno si, uno no"
             if ((i % 2) == 0){
                 bloqueCodificado += bloque[i];
             }
@@ -194,7 +210,7 @@ string bloqueDecodifMet1(string bin ){
     int cantCeros = 0, cantUnos = 0;
     string bloqueOrg, decodificado, decodificadoLetras;
     int numBloques = bin.length()/bloque;
-    for (int bloqueNum = 0; bloqueNum< numBloques; bloqueNum++){        //bloqueNum: bloque Número...
+    for (int bloqueNum = 0; bloqueNum< numBloques; bloqueNum++){        //Realizar la cantidad de bloques en la cadena
         string bloqueCodif = "";
         for (int j = (bloque*bloqueNum); j< (bloque*(bloqueNum+1)); j++){       //bloque*bloqueNum: el primer índice a tomar de la cadena
             bloqueCodif += bin[j];
@@ -216,7 +232,7 @@ string bloqueDecodifMet1(string bin ){
         for (int indice = (8*byte); indice < 8*(byte+1);indice++ ){
             binario+= decodificado[indice];
         }
-        char letra = binarioADecimal(binario);
+        char letra = binarioADecimal(binario);      //Paso a char mediante ASCII
         decodificadoLetras += letra;
     }
     return decodificadoLetras;
