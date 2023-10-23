@@ -2,110 +2,85 @@
 #include <limits.h>
 #include "funciones.h"
 
-// Number of vertices in the graph
-#define V 9
-
-// A utility function to find the vertex with minimum
-// distance value, from the set of vertices not yet included
-// in shortest path tree
-int minDistance(int dist[], bool sptSet[])  //shortest path tree set
+int minDistance(int dist[], bool sptSet[], int len)
 {
+    /*
+    Analizar de las distancias cuál es la menor y que no haya sido procesada
+    min: distancia más corta de los caminos que no han sido procesados
+    */
+    int min = INT_MAX, min_index;   // Inicializar valor mínimo como el número máximo, indicar que no ha sido procesado
 
-
-    // Initialize min value
-    int min = INT_MAX, min_index;
-
-    for (int v = 0; v < V; v++)
+    for (int v = 0; v < len; v++)
         if (sptSet[v] == false && dist[v] <= min)
+            //Si: el camino no ha sido procesado y la distancia al enrutador v es menor a min
             min = dist[v], min_index = v;
 
     return min_index;
 }
 
-// A utility function to print the constructed distance
-// array
-void printSolution(int dist[])
+
+
+void printSolution(int dist[], int len)
 {
-    cout << "Vertex \t Distance from Source" << endl;
-    for (int i = 0; i < V; i++)
-        cout << i << " \t\t\t\t" << dist[i] << endl;
+    for (char letra = 'A'; letra < 'E'; letra++){
+        cout << letra << " ";
+    }
+    cout << endl;
+    for (int i = 0 ; i < len; i++)
+        cout << dist[i] << " ";
 }
 
-// Function that implements Dijkstra's single source
-// shortest path algorithm for a graph represented using
-// adjacency matrix representation
+
+
 void dijkstra(vector<vector<int>> vectores, int src)
 {
-    int dist[V]; // The output array.  dist[i] will hold the
-        // shortest
-    // distance from src to i
+    /*
+    src: posición del enrutador al que le quiero calcular el camino más corto
+    len:cantidad de enrutadores
+    dist: almacen de distancias mínimas desde src a cada enrutador
+    sptSet:shortest path tree set: arreglo que indica si se ha encontrado la distancia mínima a cada enrutador
+    */
+    int len = vectores.size();
 
-    bool sptSet[V]; // sptSet[i] will be true if vertex i is
-        // included in shortest
-    // path tree or shortest distance from src to i is
-    // finalized
-
-    // Initialize all distances as INFINITE and stpSet[] as
-    // false
-    for (int i = 0; i < V; i++)
+    int dist[len];
+    bool sptSet[len];
+    for (int i = 0; i < len; i++)         //Inicializar todos los caminos como distancia máxima y vertice no procesado
         dist[i] = INT_MAX, sptSet[i] = false;
 
-    // Distance of source vertex from itself is always 0
-    dist[src] = 0;
+    dist[src] = 0;          // La distancia del enrutador a si mismo es 0
 
     // Find shortest path for all vertices
-    for (int count = 0; count < V - 1; count++) {
-        // Pick the minimum distance vertex from the set of
-        // vertices not yet processed. u is always equal to
-        // src in the first iteration.
-        int u = minDistance(dist, sptSet);
+    for (int count = 0; count < len - 1; count++) {
 
-        // Mark the picked vertex as processed
-        sptSet[u] = true;
+        int u = minDistance(dist, sptSet, len);         //camino mínimo del arreglo de distancias.
+        //u en la primera iteración siempre es src
+        //u: indice de la distancia más corta de los caminos que no han sido procesados
 
-        // Update dist value of the adjacent vertices of the
-        // picked vertex.
-        for (int v = 0; v < V; v++)
+        sptSet[u] = true;       //el camino a u ha sido procesado
 
-            // Update dist[v] only if is not in sptSet,
-            // there is an edge from u to v, and total
-            // weight of path from src to  v through u is
-            // smaller than current value of dist[v]
-            if (!sptSet[v] && vectores[u][v]
+        for (int v = 0; v < len; v++)
+            if (!sptSet[v] && vectores[u][v]        //sptSet[v] es false, cumple
                 && dist[u] != INT_MAX
                 && dist[u] + vectores[u][v] < dist[v])
+                //la distancia que tiene almacenada más el enrutador
+                //en la posición U con el enrutador a evaluar V es menor
+                //a la distancia que se tiene en V
                 dist[v] = dist[u] + vectores[u][v];
     }
-
-    // print the constructed distance array
-    printSolution(dist);
 }
 
-// driver's code
+
+
 int main()
 {
-    vector<int> vector1 = { 0, 4, 0, 0, 0, 0, 0, 8, 0 };
-    vector<int> vector2 = { 4, 0, 8, 0, 0, 0, 0, 11, 0 };
-    vector<int> vector3 = { 0, 8, 0, 7, 0, 4, 0, 0, 2 };
-    vector<int> vector4 = { 0, 0, 7, 0, 9, 14, 0, 0, 0 };
-    vector<int> vector5 = { 0, 0, 0, 9, 0, 10, 0, 0, 0 };
-    vector<int> vector6 = { 0, 0, 4, 14, 10, 0, 2, 0, 0 };
-    vector<int> vector7 = { 0, 0, 0, 0, 0, 2, 0, 1, 6 };
-    vector<int> vector8 = { 8, 11, 0, 0, 0, 0, 1, 0, 7 };
-    vector<int> vector9 = { 0, 0, 2, 0, 0, 0, 6, 7, 0 };
-    vector<vector<int>> vectores = {vector1, vector2,vector3,vector4,vector5,vector6,vector7,vector8,vector9};
-    /* Let us create the example graph discussed above */
-    int graph[V][V] = { { 0, 4, 0, 0, 0, 0, 0, 8, 0 },
-                       { 4, 0, 8, 0, 0, 0, 0, 11, 0 },
-                       { 0, 8, 0, 7, 0, 4, 0, 0, 2 },
-                       { 0, 0, 7, 0, 9, 14, 0, 0, 0 },
-                       { 0, 0, 0, 9, 0, 10, 0, 0, 0 },
-                       { 0, 0, 4, 14, 10, 0, 2, 0, 0 },
-                       { 0, 0, 0, 0, 0, 2, 0, 1, 6 },
-                       { 8, 11, 0, 0, 0, 0, 1, 0, 7 },
-                       { 0, 0, 2, 0, 0, 0, 6, 7, 0 } };
+    vector<int> vector1 = { 0 , 4 , 10 , 0 };
+    vector<int> vector2 = { 4 , 0 , 0 , 1 };
+    vector<int> vector3 = { 10 , 0 , 0 , 2 };
+    vector<int> vector4 = { 0 , 1 , 2 , 0 };
 
-    // Function call
+    vector<vector<int>> vectores = {vector1, vector2,vector3,vector4};
+
+
     dijkstra(vectores, 0);
 
     return 0;
