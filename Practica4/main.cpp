@@ -75,48 +75,41 @@ void dijkstra(vector<vector<int>> &vectores, int src)
 
 
 
-int main()
-{   Enrutador A(0),B(1),C(2),D(3);
+int main(){
+    vector<char> letras = {'A','B','C','D'};
+    Enrutador A(0,'A'),B(1,'B'),C(2,'C'),D(3,'D');
     TablaEnrutamiento rut;
-
     A.agregarRuta(B.getIndex(),4); A.agregarRuta(C.getIndex(),10);
     B.agregarRuta(A.getIndex(),4); B.agregarRuta(D.getIndex(),1);
     C.agregarRuta(A.getIndex(),10); C.agregarRuta(D.getIndex(),2);
     D.agregarRuta(C.getIndex(),2); D.agregarRuta(B.getIndex(),1);
 
-    rut.setEnrutador(A.retornarConexionesVecinas(),A.getIndex());
-    rut.setEnrutador(B.retornarConexionesVecinas(),B.getIndex());
-    rut.setEnrutador(C.retornarConexionesVecinas(),C.getIndex());
-    rut.setEnrutador(D.retornarConexionesVecinas(),D.getIndex());
 
-    rut.mostrarEnrutadores();
 
-    //rut.eliminarEnrutador(A.getIndex());
-    //rut.mostrarEnrutadores();
 
-    dijkstra(*rut.getEnrutadores(),0);
+    rut.setEnrutador(*A.retornarConexionesVecinas(),A.getIndex());
+    rut.setEnrutador(*B.retornarConexionesVecinas(),B.getIndex());
+    rut.setEnrutador(*C.retornarConexionesVecinas(),C.getIndex());
+    rut.setEnrutador(*D.retornarConexionesVecinas(),D.getIndex());
+
+    rut.mostrarEnrutadores(letras);
+    rut.eliminarEnrutador(B.getIndex());
+    letras.erase(letras.begin()+1);
+    rut.mostrarEnrutadores(letras);
+
+    //dijkstra(*rut.getEnrutadores(),0);
     cout << endl;
     return 0;
 }
 
 /*
-
-    TablaEnrutamiento rut;
-    Enrutador A(quote(A)),B(quote(B)),C(quote(C)),D(quote(D));                  //4 enrutadores por defecto, en caso de desear más, se debe crear manualmente
-    //list<Enrutador> enrutadores = {A,B,C,D};
-
-    A.agregarRuta('B',4); A.agregarRuta('C',10);
-    B.agregarRuta('A',4); B.agregarRuta('D',1);
-    C.agregarRuta('A',10);C.agregarRuta('D',2);
-    D.agregarRuta('C',2);D.agregarRuta('B',1);
-
-    rut.setEnrutador(A.retornarConexionesVecinas());
-    rut.setEnrutador(B.retornarConexionesVecinas());
-    rut.setEnrutador(C.retornarConexionesVecinas());
-    rut.setEnrutador(D.retornarConexionesVecinas());
+    A.mostrarConexionesVecinas(letras);
+    A.eliminarRuta(1);
+    letras.erase(letras.begin()+1);
+    A.mostrarConexionesVecinas(letras);
 
 
-    rut.mostrarEnrutadores();
+
 
 
     vector<int> vector1 = { 0 , 4 , 10 , 0 };
@@ -129,11 +122,6 @@ int main()
     dijkstra(vectores, 0);
 
 
-
-
-    //A.mostrarCosto('B');
-    //A.eliminarRuta('B');
-    //A.mostrarCosto('B');
 
 */
 

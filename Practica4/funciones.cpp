@@ -1,17 +1,30 @@
 #include "funciones.h"
 
 
-Enrutador::Enrutador(int index){
+Enrutador::Enrutador(int index, char identificador){
     //4 enrutadores inicialmente
     conexionesVecinas.push_back(0);
     conexionesVecinas.push_back(0);
     conexionesVecinas.push_back(0);
     conexionesVecinas.push_back(0);
     indice = index;
+    id = identificador;
 }
 
 int Enrutador::getIndex(){
     return indice;
+}
+
+void Enrutador::setIndex(int index){
+    indice = index;
+}
+
+char Enrutador::getId(){
+    return id;
+}
+
+void Enrutador::setId(char identificador){
+    id = identificador;
 }
 
 void Enrutador::agregarRuta(int posicion, int costo){
@@ -24,21 +37,19 @@ void Enrutador::eliminarRuta(int posicion){
     conexionesVecinas.erase(pos);
 }
 
-
-
-vect Enrutador::retornarConexionesVecinas() const{
-    return conexionesVecinas;
+vect * Enrutador::retornarConexionesVecinas(){
+    return &conexionesVecinas;
 }
 
-void Enrutador::mostrarConexionesVecinas(){
-    char lenMax = 'A' + conexionesVecinas.size();
-    for (char letra = 'A'; letra < lenMax; letra++){
+void Enrutador::mostrarConexionesVecinas(vector<char> letras){
+    for (const auto letra:letras){
         cout << letra << " ";
     }
     cout << endl;
     for (const auto i: conexionesVecinas){
         cout << i << " ";
     }
+    cout << "\n\n";
 }
 
 
@@ -66,8 +77,7 @@ int TablaEnrutamiento::getCantEnrutadores(){
     return cantEnrutadores;
 }
 
-
-void TablaEnrutamiento::setEnrutador(vect conexiones,const int pos){
+void TablaEnrutamiento::setEnrutador(vect &conexiones,const int pos){
     int len = conexiones.size();
     for (int i = 0; i < len; i++){
         enrutadores[pos][i] = conexiones[i];
@@ -95,16 +105,15 @@ void TablaEnrutamiento::eliminarEnrutador(int pos){
 }
 
 
-void TablaEnrutamiento::mostrarEnrutadores(){
-    char letraMax = 'A' + enrutadores.size();
-    cout << " ";
-    for (char i = 'A'; i < letraMax; i++){
-        cout << "   " << i;
+void TablaEnrutamiento::mostrarEnrutadores(vector<char> letras){
+    //vector<char> ::iterator iterador= letras.begin();
+    for (auto letra: letras ){
+        cout << "   " << letra;
     }
-    char enrutador = 'A';
+    vector<char> ::iterator iterador= letras.begin();
     for (const auto &i: enrutadores){
-        cout << endl << enrutador << " ";
-        enrutador ++;
+        cout << endl << *iterador << " ";
+        *iterador ++;
         for (const auto  objeto: i){
             int lenObjt = ((objeto >= 10)|| (objeto < 0)) ? 2:1 ;
             if (lenObjt == 2){

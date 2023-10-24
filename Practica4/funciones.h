@@ -20,13 +20,21 @@ class Enrutador {
 private:
     vect conexionesVecinas;     //Vector con 4 espacios inicialmente
     int indice;
+    char id;
 public:
-    Enrutador(int index);
-    int getIndex();
-    void agregarRuta(const int posicion, const int costo);
-    void eliminarRuta(const int posicion);
-    void mostrarConexionesVecinas();
-    vect retornarConexionesVecinas() const;
+    /*
+    int posición: índice en los vectores en el cual se encunetra el enrutador objetivo
+
+    */
+    Enrutador(int index, char identificador);
+    int getIndex();         //Retorno Indice |
+    void setIndex(int index);           //Set índice |
+    char getId();           //Retorno Id |
+    void setId(char identificador);         //Set Id |
+    void agregarRuta(const int posicion, const int costo);          //Agregar Ruta |
+    void eliminarRuta(const int posicion);          //eliminar ruta |
+    void mostrarConexionesVecinas(vector<char> letras);         //mostrar rutas pasando las conexiones existentes|
+    vect * retornarConexionesVecinas();         //retornar dirección de memoria donde se ubican las conexiones
 
 };
 
@@ -38,10 +46,10 @@ private:
 public:
     TablaEnrutamiento();
     vector<vect> *getEnrutadores();
-    int getCantEnrutadores();
-    void setEnrutador(vect enrutador,const int pos);
-    void eliminarEnrutador(int pos);
-    void mostrarEnrutadores();
+    int getCantEnrutadores();       // |
+    void setEnrutador(vect &enrutador,const int pos);        //|
+    void eliminarEnrutador(int pos);        //|
+    void mostrarEnrutadores(vector<char> letras);
 
 };
 
