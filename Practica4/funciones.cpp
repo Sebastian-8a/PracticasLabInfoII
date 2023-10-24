@@ -1,130 +1,59 @@
 #include "funciones.h"
 
 
-Enrutador::Enrutador(int index, char identificador){
-    //4 enrutadores inicialmente
-    conexionesVecinas.push_back(0);
-    conexionesVecinas.push_back(0);
-    conexionesVecinas.push_back(0);
-    conexionesVecinas.push_back(0);
-    indice = index;
-    id = identificador;
+int minDistance(int dist[], bool sptSet[], int len)
+{
+    /*
+    Analizar de las distancias cuál es la menor y que no haya sido procesada
+    min: distancia más corta de los caminos que no han sido procesados
+    */
+    int min = INT_MAX, min_index;   // Inicializar valor mínimo como el número máximo, indicar que no ha sido procesado
+
+    for (int v = 0; v < len; v++)
+        if (sptSet[v] == false && dist[v] <= min)
+            //Si: el camino no ha sido procesado y la distancia al enrutador v es menor a min
+            min = dist[v], min_index = v;
+
+    return min_index;
 }
 
-int Enrutador::getIndex(){
-    return indice;
-}
+void dijkstra(vector<vector<int>> &vectores, int src)
+{
+    /*
+    src: posición del enrutador al que le quiero calcular el camino más corto
+    len:cantidad de enrutadores
+    dist: almacen de distancias mínimas desde src a cada enrutador
+    sptSet:shortest path tree set: arreglo que indica si se ha encontrado la distancia mínima a cada enrutador
+    */
+    int len = vectores.size();
 
-void Enrutador::setIndex(int index){
-    indice = index;
-}
+    int dist[len];
+    bool sptSet[len];
+    for (int i = 0; i < len; i++)         //Inicializar todos los caminos como distancia máxima y vertice no procesado
+        dist[i] = INT_MAX, sptSet[i] = false;
 
-char Enrutador::getId(){
-    return id;
-}
+    dist[src] = 0;          // La distancia del enrutador a si mismo es 0
 
-void Enrutador::setId(char identificador){
-    id = identificador;
-}
+    // Find shortest path for all vertices
+    for (int count = 0; count < len - 1; count++) {
 
-void Enrutador::agregarRuta(int posicion, int costo){
-    conexionesVecinas[posicion] = costo;
-}
+        int u = minDistance(dist, sptSet, len);         //camino mínimo del arreglo de distancias.
+        //u en la primera iteración siempre es src
+        //u: indice de la distancia más corta de los caminos que no han sido procesados
 
-void Enrutador::eliminarRuta(int posicion){
-    vect::iterator pos;
-    pos = conexionesVecinas.begin() + posicion;
-    conexionesVecinas.erase(pos);
-}
+        sptSet[u] = true;       //el camino a u ha sido procesado
 
-vect * Enrutador::retornarConexionesVecinas(){
-    return &conexionesVecinas;
-}
-
-void Enrutador::mostrarConexionesVecinas(vector<char> letras){
-    for (const auto letra:letras){
-        cout << letra << " ";
+        for (int v = 0; v < len; v++)
+            if (!sptSet[v] && vectores[u][v]        //sptSet[v] es false, cumple
+                && dist[u] != INT_MAX
+                && dist[u] + vectores[u][v] < dist[v])
+                //la distancia que tiene almacenada más el enrutador
+                //en la posición U con el enrutador a evaluar V es menor
+                //a la distancia que se tiene en V
+                dist[v] = dist[u] + vectores[u][v];
     }
-    cout << endl;
-    for (const auto i: conexionesVecinas){
-        cout << i << " ";
-    }
-    cout << "\n\n";
-}
-
-
-
-
-
-
-
-TablaEnrutamiento::TablaEnrutamiento(){
-    for (int j = 0; j < 4; j++){
-        vect temporal(4);
-        for (int i = 0; i< 4;i++){
-            temporal[i] = 0;
-        }
-        enrutadores.push_back(temporal);
-    }
-    cantEnrutadores = 4;
-}
-
-vector<vect> * TablaEnrutamiento::getEnrutadores(){
-    return &enrutadores;
-}
-
-int TablaEnrutamiento::getCantEnrutadores(){
-    return cantEnrutadores;
-}
-
-void TablaEnrutamiento::setEnrutador(vect &conexiones,const int pos){
-    int len = conexiones.size();
     for (int i = 0; i < len; i++){
-        enrutadores[pos][i] = conexiones[i];
-    }
-
-}
-
-
-void TablaEnrutamiento::eliminarEnrutador(int pos){
-    vect *elim = &enrutadores[pos];
-    vect:: iterator borrar = (*elim).begin();
-    for (int i = 0; i < cantEnrutadores ; i++){
-        (*elim).erase(borrar);
-    }
-
-    cantEnrutadores--;
-    auto Elim = (enrutadores.begin()) + pos;
-    enrutadores.erase(Elim);
-
-    for (int i = 0; i < cantEnrutadores ; i++){
-        elim = &enrutadores[i];
-        borrar = (*elim).begin()+pos;
-        (*elim).erase(borrar);
+        vectores[src][i] = dist[i];
     }
 }
-
-
-void TablaEnrutamiento::mostrarEnrutadores(vector<char> letras){
-    //vector<char> ::iterator iterador= letras.begin();
-    for (auto letra: letras ){
-        cout << "   " << letra;
-    }
-    vector<char> ::iterator iterador= letras.begin();
-    for (const auto &i: enrutadores){
-        cout << endl << *iterador << " ";
-        *iterador ++;
-        for (const auto  objeto: i){
-            int lenObjt = ((objeto >= 10)|| (objeto < 0)) ? 2:1 ;
-            if (lenObjt == 2){
-                cout<< " "<< objeto << " ";
-            }
-            else cout<< "  "<< objeto << " ";
-        }
-    }
-    cout << "\n\n";
-}
-
-
-
 
