@@ -1,83 +1,121 @@
 #include "funciones.h"
 
 
-Enrutador::Enrutador(){
-    conexionesVecinas['A'] = -1;
-    conexionesVecinas['B'] = -1;
-    conexionesVecinas['C'] = -1;
-    conexionesVecinas['D'] = -1;
-    nombre = ' ';
+Enrutador::Enrutador(int index){
+    //4 enrutadores inicialmente
+    conexionesVecinas.push_back(0);
+    conexionesVecinas.push_back(0);
+    conexionesVecinas.push_back(0);
+    conexionesVecinas.push_back(0);
+    indice = index;
 }
 
-Enrutador::Enrutador(string nom){
-    conexionesVecinas['A'] = -1;
-    conexionesVecinas['B'] = -1;
-    conexionesVecinas['C'] = -1;
-    conexionesVecinas['D'] = -1;
-    nombre = nom[0];
-    conexionesVecinas[nom[0]] = 0;
+int Enrutador::getIndex(){
+    return indice;
 }
 
-void Enrutador::setNombre(string nombreClase){
-    nombre = nombreClase[0];
+void Enrutador::agregarRuta(int posicion, int costo){
+    conexionesVecinas[posicion] = costo;
 }
 
-char Enrutador::getNombre() const {
-    return nombre;
+void Enrutador::eliminarRuta(int posicion){
+    vect::iterator pos;
+    pos = conexionesVecinas.begin() + posicion;
+    conexionesVecinas.erase(pos);
 }
 
-void Enrutador::agregarRuta(char enrutador, int costo){
-    conexionesVecinas[enrutador] = costo;
-}
 
-void Enrutador::eliminarRuta(const char enrutador){
-    conexionesVecinas.erase(enrutador);
-}
 
-void Enrutador::mostrarCosto(char enrutador){
-    try{
-        cout << endl << "El costo al enrutador: "<< enrutador << " es "<< conexionesVecinas.at(enrutador);
-    }catch(const exception &e){
-        cout << endl<< "No se ha encontrado el enrutador";
-        return;
-    }
-}
-
-mapa Enrutador::retornarConexionesVecinas() const{
+vect Enrutador::retornarConexionesVecinas() const{
     return conexionesVecinas;
 }
 
-
-
-
-
-
-
-void TablaEnrutamiento::setEnrutador(mapa conexiones){
-    enrutadores.push_back(conexiones);
+void Enrutador::mostrarConexionesVecinas(){
+    char lenMax = 'A' + conexionesVecinas.size();
+    for (char letra = 'A'; letra < lenMax; letra++){
+        cout << letra << " ";
+    }
+    cout << endl;
+    for (const auto i: conexionesVecinas){
+        cout << i << " ";
+    }
 }
 
+
+
+
+
+
+
+TablaEnrutamiento::TablaEnrutamiento(){
+    for (int j = 0; j < 4; j++){
+        vect temporal(4);
+        for (int i = 0; i< 4;i++){
+            temporal[i] = 0;
+        }
+        enrutadores.push_back(temporal);
+    }
+    cantEnrutadores = 4;
+}
+
+vector<vect> * TablaEnrutamiento::getEnrutadores(){
+    return &enrutadores;
+}
+
+int TablaEnrutamiento::getCantEnrutadores(){
+    return cantEnrutadores;
+}
+
+
+void TablaEnrutamiento::setEnrutador(vect conexiones,const int pos){
+    int len = conexiones.size();
+    for (int i = 0; i < len; i++){
+        enrutadores[pos][i] = conexiones[i];
+    }
+
+}
+
+
+void TablaEnrutamiento::eliminarEnrutador(int pos){
+    vect *elim = &enrutadores[pos];
+    vect:: iterator borrar = (*elim).begin();
+    for (int i = 0; i < cantEnrutadores ; i++){
+        (*elim).erase(borrar);
+    }
+
+    cantEnrutadores--;
+    auto Elim = (enrutadores.begin()) + pos;
+    enrutadores.erase(Elim);
+
+    for (int i = 0; i < cantEnrutadores ; i++){
+        elim = &enrutadores[i];
+        borrar = (*elim).begin()+pos;
+        (*elim).erase(borrar);
+    }
+}
+
+
 void TablaEnrutamiento::mostrarEnrutadores(){
+    char letraMax = 'A' + enrutadores.size();
     cout << " ";
-    for (char i = 'A'; i < 'E'; i++){
+    for (char i = 'A'; i < letraMax; i++){
         cout << "   " << i;
     }
     char enrutador = 'A';
-    for (auto &i: enrutadores){
+    for (const auto &i: enrutadores){
         cout << endl << enrutador << " ";
         enrutador ++;
-        for (auto  objeto: i){
-            int lenObjt = ((objeto.second >= 10)|| (objeto.second < 0)) ? 2:1 ;
+        for (const auto  objeto: i){
+            int lenObjt = ((objeto >= 10)|| (objeto < 0)) ? 2:1 ;
             if (lenObjt == 2){
-                cout<< " "<< objeto.second << " ";
+                cout<< " "<< objeto << " ";
             }
-            else cout<< "  "<< objeto.second << " ";
+            else cout<< "  "<< objeto << " ";
         }
     }
+    cout << "\n\n";
 }
 
-void agregarEnlace(){
 
-}
 
 

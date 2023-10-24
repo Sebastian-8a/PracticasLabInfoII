@@ -5,42 +5,44 @@
 #include <map>
 #include <list>
 #include <queue>
+#include <vector>
 
-#define quote(nombreClase) #nombreClase         //Macro
+
 const int INF = INT_MAX; // Valor para representar la distancia infinita
 
 using namespace std;
 
-typedef map<char,int> mapa;
+typedef vector<int> vect;
 
 
 //Clase Enrutador
 class Enrutador {
 private:
-    mapa conexionesVecinas;
-    char nombre;
+    vect conexionesVecinas;     //Vector con 4 espacios inicialmente
+    int indice;
 public:
-    Enrutador();
-    Enrutador(string A);
-    void setNombre(string nombreClase);
-    char getNombre() const;
-    void agregarRuta(const char enrutador, const int costo);
-    void eliminarRuta(const char enrutador);
-    void mostrarCosto(const char enrutador);
-    mapa retornarConexionesVecinas() const;
+    Enrutador(int index);
+    int getIndex();
+    void agregarRuta(const int posicion, const int costo);
+    void eliminarRuta(const int posicion);
+    void mostrarConexionesVecinas();
+    vect retornarConexionesVecinas() const;
 
 };
 
 
 class TablaEnrutamiento{
 private:
-    vector<mapa> enrutadores;
-
+    vector<vect> enrutadores;
+    int cantEnrutadores;
 public:
-    TablaEnrutamiento(){};
-    void setEnrutador(mapa enrutador);
+    TablaEnrutamiento();
+    vector<vect> *getEnrutadores();
+    int getCantEnrutadores();
+    void setEnrutador(vect enrutador,const int pos);
+    void eliminarEnrutador(int pos);
     void mostrarEnrutadores();
-    void mejorCamino();
+
 };
 
 

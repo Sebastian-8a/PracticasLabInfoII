@@ -32,7 +32,7 @@ void printSolution(int dist[], int len)
 
 
 
-void dijkstra(vector<vector<int>> vectores, int src)
+void dijkstra(vector<vector<int>> &vectores, int src)
 {
     /*
     src: posición del enrutador al que le quiero calcular el camino más corto
@@ -67,28 +67,40 @@ void dijkstra(vector<vector<int>> vectores, int src)
                 //a la distancia que se tiene en V
                 dist[v] = dist[u] + vectores[u][v];
     }
+    for (int i = 0; i < len; i++){
+        vectores[src][i] = dist[i];
+    }
+    printSolution(dist,len);
 }
 
 
 
 int main()
-{
-    vector<int> vector1 = { 0 , 4 , 10 , 0 };
-    vector<int> vector2 = { 4 , 0 , 0 , 1 };
-    vector<int> vector3 = { 10 , 0 , 0 , 2 };
-    vector<int> vector4 = { 0 , 1 , 2 , 0 };
+{   Enrutador A(0),B(1),C(2),D(3);
+    TablaEnrutamiento rut;
 
-    vector<vector<int>> vectores = {vector1, vector2,vector3,vector4};
+    A.agregarRuta(B.getIndex(),4); A.agregarRuta(C.getIndex(),10);
+    B.agregarRuta(A.getIndex(),4); B.agregarRuta(D.getIndex(),1);
+    C.agregarRuta(A.getIndex(),10); C.agregarRuta(D.getIndex(),2);
+    D.agregarRuta(C.getIndex(),2); D.agregarRuta(B.getIndex(),1);
 
+    rut.setEnrutador(A.retornarConexionesVecinas(),A.getIndex());
+    rut.setEnrutador(B.retornarConexionesVecinas(),B.getIndex());
+    rut.setEnrutador(C.retornarConexionesVecinas(),C.getIndex());
+    rut.setEnrutador(D.retornarConexionesVecinas(),D.getIndex());
 
-    dijkstra(vectores, 0);
+    rut.mostrarEnrutadores();
 
+    //rut.eliminarEnrutador(A.getIndex());
+    //rut.mostrarEnrutadores();
+
+    dijkstra(*rut.getEnrutadores(),0);
+    cout << endl;
     return 0;
 }
 
 /*
 
-int main() {
     TablaEnrutamiento rut;
     Enrutador A(quote(A)),B(quote(B)),C(quote(C)),D(quote(D));                  //4 enrutadores por defecto, en caso de desear más, se debe crear manualmente
     //list<Enrutador> enrutadores = {A,B,C,D};
@@ -107,7 +119,14 @@ int main() {
     rut.mostrarEnrutadores();
 
 
+    vector<int> vector1 = { 0 , 4 , 10 , 0 };
+    vector<int> vector2 = { 4 , 0 , 0 , 1 };
+    vector<int> vector3 = { 10 , 0 , 0 , 2 };
+    vector<int> vector4 = { 0 , 1 , 2 , 0 };
+    vector<vector<int>> vectores = {vector1, vector2,vector3,vector4};
 
+
+    dijkstra(vectores, 0);
 
 
 
@@ -116,12 +135,5 @@ int main() {
     //A.eliminarRuta('B');
     //A.mostrarCosto('B');
 
-    //cout << endl << A.getAt('B');
-
-
-
-
-    return 0;
-}
 */
 
