@@ -17,7 +17,7 @@ int minDistance(int dist[], bool sptSet[], int len)
     return min_index;
 }
 
-void dijkstra(vector<vector<int>> &vectores, int src)
+void dijkstra(vector<vector<int>> vectoresOrg, int src, vector<vector<int>> &caminos)
 {
     /*
     src: posición del enrutador al que le quiero calcular el camino más corto
@@ -25,7 +25,7 @@ void dijkstra(vector<vector<int>> &vectores, int src)
     dist: almacen de distancias mínimas desde src a cada enrutador
     sptSet:shortest path tree set: arreglo que indica si se ha encontrado la distancia mínima a cada enrutador
     */
-    int len = vectores.size();
+    int len = vectoresOrg.size();
 
     int dist[len];
     bool sptSet[len];
@@ -44,16 +44,17 @@ void dijkstra(vector<vector<int>> &vectores, int src)
         sptSet[u] = true;       //el camino a u ha sido procesado
 
         for (int v = 0; v < len; v++)
-            if (!sptSet[v] && vectores[u][v]        //sptSet[v] es false, cumple
+            if (!sptSet[v] && vectoresOrg[u][v]        //sptSet[v] es false, cumple
                 && dist[u] != INT_MAX
-                && dist[u] + vectores[u][v] < dist[v])
+                && dist[u] + vectoresOrg[u][v] < dist[v])
                 //la distancia que tiene almacenada más el enrutador
                 //en la posición U con el enrutador a evaluar V es menor
                 //a la distancia que se tiene en V
-                dist[v] = dist[u] + vectores[u][v];
+                dist[v] = dist[u] + vectoresOrg[u][v];
     }
     for (int i = 0; i < len; i++){
-        vectores[src][i] = dist[i];
+        caminos[src][i] = dist[i];
+        vectoresOrg[src][i] = dist[i];
     }
 }
 

@@ -12,14 +12,16 @@ typedef vector<int> vect;
 //Clase tablaEnrutamiento
 class TablaEnrutamiento{
 private:
-    vector<vect> enrutadores;
+    vector<vect> conexionesOrg;
+    vector<vect> caminosCortos;
     int cantEnrutadores;
 public:
     TablaEnrutamiento();
     vector<vect> *getEnrutadores();
+    vector<vect> *getCaminos();
     int getCantEnrutadores();       // |
     void setEnrutador(vect &enrutador,const int pos);        //|
-    void eliminarEnrutador(int pos);        //|
+    void eliminarEnrutador(int pos,vector<char> &letras);        //|
     void mostrarEnrutadores(vector<char> letras);
     void minDist();         //|
 };
@@ -29,32 +31,33 @@ public:
 //Clase Enrutador
 class Enrutador {
 private:
-    vect conexionesVecinas;     //Vector con 4 espacios inicialmente
+    vect conexiones;     //Vector con 4 espacios inicialmente
     int indice;
-    char id;
-    TablaEnrutamiento tabla;
+    string id;
+    vect tabla;
 public:
     /*
     int posición: índice en los vectores en el cual se encunetra el enrutador objetivo
     */
     Enrutador();
-    Enrutador(int index, char identificador);    
+    Enrutador(int index, string identificador);
     int getIndex();         //Retorno Indice |
     void setIndex(int index);           //Set índice |
-    char getId();           //Retorno Id |
+    string getId();           //Retorno Id |
     void setId(char identificador);         //Set Id |
     void modificarRuta(int costo, int index);       //Analizar si esta se borra |
-    void setTablaEnrutamiento(TablaEnrutamiento tab);
+    void setTablaEnrutamiento(TablaEnrutamiento tab);           //|
     void agregarRuta(const int posicion, const int costo);          //Agregar Ruta |
     void eliminarRuta(const int posicion);          //eliminar ruta |
     void mostrarConexionesVecinas(vector<char> letras);         //mostrar rutas pasando las conexiones existentes|
+    void mostrarTabla(vector<char> letras);
     vect * retornarConexionesVecinas();         //retornar dirección de memoria donde se ubican las conexiones
     void agregarFinal();
 };
 
 
 
-
+void actualizarTablas(TablaEnrutamiento tabla, vector <Enrutador> *enrutadores);
 
 
 
