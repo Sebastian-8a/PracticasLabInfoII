@@ -57,12 +57,12 @@ public:
 
 
 
-void actualizarTablas(TablaEnrutamiento tabla, vector <Enrutador> *enrutadores);
+//void actualizarTablas(TablaEnrutamiento tabla, vector <Enrutador> enrutadores);
 
 
 
 void menu();
-
+void eliminar(vector<Enrutador *> *Enrutadores, vector<char> *letras, TablaEnrutamiento *rut);
 
 
 #endif // CLASES_H

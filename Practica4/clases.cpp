@@ -12,10 +12,8 @@ Enrutador::Enrutador(){
 
 Enrutador::Enrutador(int index, string identificador){
     //4 enrutadores inicialmente
-    conexiones.push_back(0);
-    conexiones.push_back(0);
-    conexiones.push_back(0);
-    conexiones.push_back(0);
+    conexiones.push_back(0);conexiones.push_back(0);conexiones.push_back(0);conexiones.push_back(0);
+    tabla.push_back(0);tabla.push_back(0);tabla.push_back(0);tabla.push_back(0);
     indice = index;
     id = identificador;
 }
@@ -82,7 +80,7 @@ void Enrutador::mostrarTabla(vector<char> letras){
 }
 
 void Enrutador::setTablaEnrutamiento(TablaEnrutamiento tab){
-    tabla = (*tab.getCaminos())[indice];
+    tabla = (*tab.getCaminos())[indice];            //Get caminos cortos
 }
 
 
@@ -173,9 +171,9 @@ void TablaEnrutamiento::minDist(){
 }
 
 
-void actualizarTablas(TablaEnrutamiento tabla, vector <Enrutador> *enrutadores){
-    for (auto enrutador : *enrutadores){
-        enrutador.setTablaEnrutamiento(tabla);
+void actualizarTablas(TablaEnrutamiento tabla, vector <Enrutador *> &enrutadores){
+    for (auto enrutador : enrutadores){
+        (*enrutador).setTablaEnrutamiento(tabla);
     }
 }
 
@@ -187,7 +185,7 @@ void actualizarTablas(TablaEnrutamiento tabla, vector <Enrutador> *enrutadores){
 void menu(){
     vector<char> letras = {'A','B','C','D'};
     Enrutador A(0,"A"),B(1,"B"),C(2,"C"),D(3,"D"),A2, A3,A4,A5;
-    vector  <Enrutador> Enrutadores= {A,B,C,D};
+    vector  <Enrutador * > Enrutadores= {&A,&B,&C,&D};
     TablaEnrutamiento rut;
     //Anexo rutas por defecto
     A.agregarRuta(B.getIndex(),4); A.agregarRuta(C.getIndex(),10);
@@ -204,12 +202,10 @@ void menu(){
     //Establecer tablas de enrutamiento para cada enrutador
     rut.minDist();
 
-    actualizarTablas(rut,&Enrutadores);
+    actualizarTablas(rut,Enrutadores);
 
     int opcion = 0;
-    string ingresado;
-    vector <Enrutador>:: iterator iteradorEnrut = Enrutadores.begin();
-    bool validacion = false ;
+
     while (opcion != 3){
         cout << "\nIngrese una opción."
                 "\n1. Eliminar enrutador."
@@ -219,33 +215,12 @@ void menu(){
         cin >> opcion;
         switch(opcion){
         case 1:
-            iteradorEnrut = Enrutadores.begin();
+            eliminar(&Enrutadores, &letras, &rut);
             rut.mostrarEnrutadores(letras);
-            while (validacion != true){
-                cout << "\nIngrese el nombre del enrutador que desea eliminar: ";
-                cin >> ingresado;
-                for (auto enrutador : Enrutadores){
-                    if (enrutador.getId() == ingresado){
-                        validacion = true;
-                        rut.eliminarEnrutador(enrutador.getIndex(),letras);
-                        Enrutadores.erase(iteradorEnrut+enrutador.getIndex());
-                        rut.minDist();
-                        actualizarTablas(rut,&Enrutadores);
-                        break;
-                    }
-                    if (validacion == false) system("cls");
-                }
-                rut.mostrarEnrutadores(letras);
-                cout << endl;
-                for (auto enrutador : Enrutadores ){
-                    enrutador.mostrarTabla(letras);
-                }
+            cout << endl;
+            for (auto enrutador : Enrutadores ){
+                (*enrutador).mostrarTabla(letras);
             }
-
-
-            /*
-En tiempo de ejecución almacenar la tabla, modificarla
-*/
             break;
         case 2:
 
@@ -259,9 +234,6 @@ En tiempo de ejecución almacenar la tabla, modificarla
             break;
         }
     }
-
-
-
 
 
     /*
@@ -286,3 +258,41 @@ En tiempo de ejecución almacenar la tabla, modificarla
 
 }
 
+void eliminar(vector<Enrutador *> *Enrutadores, vector<char> *letras, TablaEnrutamiento *rut){
+    vector <Enrutador *>:: iterator iteradorEnrut = (*Enrutadores).begin();
+    bool validacion = false ;
+    string ingresado;
+    iteradorEnrut = (*Enrutadores).begin();
+    (*rut).mostrarEnrutadores(*letras);
+    while (validacion != true){
+        cout << "\nIngrese el nombre del enrutador que desea eliminar: ";
+        cin >> ingresado;
+        for (auto enrutador : (*Enrutadores)){
+            if ((*enrutador).getId() == ingresado){
+                validacion = true;
+                (*rut).eliminarEnrutador((*enrutador).getIndex(),*letras);
+                (*Enrutadores).erase(iteradorEnrut+(*enrutador).getIndex());
+                (*rut).minDist();
+                for (auto router : (*Enrutadores)){
+                    if(router->getIndex()>=(*enrutador).getIndex()){
+                        router->setIndex(router->getIndex()-1);
+                        (*router).setTablaEnrutamiento(*rut);
+                    }
+                    else
+                        (*router).setTablaEnrutamiento(*rut);
+                }
+                break;
+            }
+            if (validacion == false) system("cls");
+        }
+        /*
+                    rut.mostrarEnrutadores(letras);
+                    cout << endl;
+                    for (auto enrutador : Enrutadores ){
+                        (*enrutador).mostrarTabla(letras);
+                    }
+*/
+        if (validacion != true)
+            cout << "\nEnrutador no encontrado";
+    }
+}
