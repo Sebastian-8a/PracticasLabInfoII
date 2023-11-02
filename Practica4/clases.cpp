@@ -4,10 +4,8 @@
 Enrutador::Enrutador(){
     indice = -1;
     id = "";
-    conexiones.push_back(0);
-    conexiones.push_back(0);
-    conexiones.push_back(0);
-    conexiones.push_back(0);
+    conexiones.push_back(0);conexiones.push_back(0);conexiones.push_back(0);conexiones.push_back(0);
+    tabla.push_back(0);tabla.push_back(0);tabla.push_back(0);tabla.push_back(0);
 }
 
 Enrutador::Enrutador(int index, string identificador){
@@ -57,8 +55,8 @@ vect * Enrutador::retornarConexionesVecinas(){
     return &conexiones;
 }
 
-void Enrutador::mostrarConexionesVecinas(vector<char> letras){
-    for (const auto letra:letras){
+void Enrutador::mostrarConexionesVecinas(vector<string> letras){
+    for (const auto &letra:letras){
         cout << letra << " ";
     }
     cout << endl;
@@ -68,8 +66,8 @@ void Enrutador::mostrarConexionesVecinas(vector<char> letras){
     cout << "\n\n";
 }
 
-void Enrutador::mostrarTabla(vector<char> letras){
-    for (const auto letra:letras){
+void Enrutador::mostrarTabla(vector<string> letras){
+    for (const auto &letra:letras){
         cout << letra << " ";
     }
     cout << endl;
@@ -83,7 +81,10 @@ void Enrutador::setTablaEnrutamiento(TablaEnrutamiento tab){
     tabla = (*tab.getCaminos())[indice];            //Get caminos cortos
 }
 
-
+void Enrutador::pushBackConexionesTabla(){
+    conexiones.push_back(0);
+    tabla.push_back(0);
+}
 
 
 
@@ -119,10 +120,10 @@ void TablaEnrutamiento::setEnrutador(vect &conexiones,const int pos){
 
 }
 
-void TablaEnrutamiento::eliminarEnrutador(int pos, vector<char> &letras){
+void TablaEnrutamiento::eliminarEnrutador(int pos, vector<string> &letras){
     vect *elim = &conexionesOrg[pos],*elimCamino = &caminosCortos[pos];
     vect:: iterator borrar = (*elim).begin(),borrarCamino = (*elimCamino).begin();
-    vector<char>::iterator letra = letras.begin()+ pos;
+    vector<string>::iterator letra = letras.begin()+ pos;
     letras.erase(letra);
     for (int i = 0; i < cantEnrutadores ; i++){
         (*elim).erase(borrar);
@@ -144,12 +145,12 @@ void TablaEnrutamiento::eliminarEnrutador(int pos, vector<char> &letras){
     }
 }
 
-void TablaEnrutamiento::mostrarEnrutadores(vector<char> letras){
+void TablaEnrutamiento::mostrarEnrutadores(vector<string> letras){
     //vector<char> ::iterator iterador= letras.begin();
     for (auto letra: letras ){
         cout << "   " << letra;
     }
-    vector<char> ::iterator iterador= letras.begin();
+    vector<string> ::iterator iterador= letras.begin();
     for (const auto &i: caminosCortos){
         cout << endl << *iterador << " ";
         *iterador ++;
@@ -183,9 +184,11 @@ void actualizarTablas(TablaEnrutamiento tabla, vector <Enrutador *> &enrutadores
 
 
 void menu(){
-    vector<char> letras = {'A','B','C','D'};
+    vector <string> letras = {"A","B","C","D"};
     Enrutador A(0,"A"),B(1,"B"),C(2,"C"),D(3,"D"),A2, A3,A4,A5;
-    vector  <Enrutador * > Enrutadores= {&A,&B,&C,&D};
+    vector  <Enrutador * > Enrutadores= {&A,&B,&C,&D}, restantes = {&A2,&A3,&A4,&A5};
+    Enrutador * punteroEnrut;
+
     TablaEnrutamiento rut;
     //Anexo rutas por defecto
     A.agregarRuta(B.getIndex(),4); A.agregarRuta(C.getIndex(),10);
@@ -206,21 +209,35 @@ void menu(){
 
     int opcion = 0;
 
+
     while (opcion != 3){
         cout << "\nIngrese una opción."
-                "\n1. Eliminar enrutador."
+                "\n1. Agregar enrutador."
                 "\n2. Algo."
                 "\n3 Salir."
                 "\nOpcion: ";
         cin >> opcion;
         switch(opcion){
         case 1:
-            eliminar(&Enrutadores, &letras, &rut);
+            for(auto enrut : Enrutadores){
+                enrut->pushBackConexionesTabla();
+            }
+            for(auto enrut : restantes){
+                enrut->pushBackConexionesTabla();
+            }
+
+            punteroEnrut = restantes.back();
+            agregar(&letras, &Enrutadores, punteroEnrut);
+            rut.setEnrutador(*punteroEnrut->retornarConexionesVecinas(),punteroEnrut->getIndex());
+            Enrutadores.push_back(punteroEnrut);
+            restantes.pop_back();
             rut.mostrarEnrutadores(letras);
             cout << endl;
             for (auto enrutador : Enrutadores ){
                 (*enrutador).mostrarTabla(letras);
             }
+            rut.minDist();
+            actualizarTablas(rut,Enrutadores);
             break;
         case 2:
 
@@ -237,6 +254,17 @@ void menu(){
 
 
     /*
+    Parte de implementación de borrar enrutador
+    eliminar(&Enrutadores, &letras, &rut);
+    rut.mostrarEnrutadores(letras);
+    cout << endl;
+    for (auto enrutador : Enrutadores ){
+        (*enrutador).mostrarTabla(letras);
+    }
+    rut.minDist();
+    actualizarTablas(rut,Enrutadores);
+
+
 
     rut.mostrarEnrutadores(letras);
 
@@ -258,11 +286,10 @@ void menu(){
 
 }
 
-void eliminar(vector<Enrutador *> *Enrutadores, vector<char> *letras, TablaEnrutamiento *rut){
+void eliminar(vector<Enrutador *> *Enrutadores, vector<string> *letras, TablaEnrutamiento *rut){
     vector <Enrutador *>:: iterator iteradorEnrut = (*Enrutadores).begin();
     bool validacion = false ;
     string ingresado;
-    iteradorEnrut = (*Enrutadores).begin();
     (*rut).mostrarEnrutadores(*letras);
     while (validacion != true){
         cout << "\nIngrese el nombre del enrutador que desea eliminar: ";
@@ -295,4 +322,31 @@ void eliminar(vector<Enrutador *> *Enrutadores, vector<char> *letras, TablaEnrut
         if (validacion != true)
             cout << "\nEnrutador no encontrado";
     }
+}
+
+void agregar(vector<string> *letras, vector<Enrutador *> *Enrutadores, Enrutador * punteroEnrut){
+    string id;
+    vector <Enrutador *>:: iterator iteradorEnrut = (*Enrutadores).begin();
+    Enrutador * punteroDestino;
+    cout <<"\nIngrese el nombre del enrutador: ";
+    cin >> id;
+    punteroEnrut->setIndex(Enrutadores->size());
+    for(const auto &letra:*letras){
+        int costo;
+        cout <<"\nIngrese el costo al enrutador " << letra << "\nEn "
+        "caso de que no tenga conexión directa ingrese 0 \nCosto: ";
+        cin >> costo;
+        punteroEnrut->agregarRuta((*iteradorEnrut)->getIndex(),costo);      //Agregar el costo de la ruta directa para ese enrutador
+        if(costo > 0){
+            try {
+                punteroDestino = Enrutadores->at((*iteradorEnrut)->getIndex());
+                punteroDestino->agregarRuta(punteroEnrut->getIndex(),costo);
+            } catch (const exception &) {
+                cout << "\nSigue";
+            }
+        }
+        iteradorEnrut++;
+    }
+    punteroEnrut->agregarRuta((punteroEnrut->getIndex()),0);
+    (letras)->push_back(id);
 }

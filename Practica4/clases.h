@@ -21,8 +21,8 @@ public:
     vector<vect> *getCaminos();
     int getCantEnrutadores();       // |
     void setEnrutador(vect &enrutador,const int pos);        //|
-    void eliminarEnrutador(int pos,vector<char> &letras);        //|
-    void mostrarEnrutadores(vector<char> letras);
+    void eliminarEnrutador(int pos,vector<string> &letras);        //|
+    void mostrarEnrutadores(vector<string> letras);
     void minDist();         //|
 };
 
@@ -49,10 +49,10 @@ public:
     void setTablaEnrutamiento(TablaEnrutamiento tab);           //|
     void agregarRuta(const int posicion, const int costo);          //Agregar Ruta |
     void eliminarRuta(const int posicion);          //eliminar ruta |
-    void mostrarConexionesVecinas(vector<char> letras);         //mostrar rutas pasando las conexiones existentes|
-    void mostrarTabla(vector<char> letras);
+    void mostrarConexionesVecinas(vector<string> letras);         //mostrar rutas pasando las conexiones existentes|
+    void mostrarTabla(vector<string> letras);
     vect * retornarConexionesVecinas();         //retornar dirección de memoria donde se ubican las conexiones
-    void agregarFinal();
+    void pushBackConexionesTabla();
 };
 
 
@@ -62,7 +62,7 @@ public:
 
 
 void menu();
-void eliminar(vector<Enrutador *> *Enrutadores, vector<char> *letras, TablaEnrutamiento *rut);
-
+void eliminar(vector<Enrutador *> *Enrutadores, vector<string> *letras, TablaEnrutamiento *rut);
+void agregar(vector<string> *letras,vector<Enrutador *> *Enrutadores, Enrutador * punteroEnrut);
 
 #endif // CLASES_H
