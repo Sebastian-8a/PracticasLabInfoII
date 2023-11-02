@@ -20,10 +20,13 @@ public:
     vector<vect> *getEnrutadores();
     vector<vect> *getCaminos();
     int getCantEnrutadores();       // |
+    void aumentarCantEnrutadores();
     void setEnrutador(vect &enrutador,const int pos);        //|
     void eliminarEnrutador(int pos,vector<string> &letras);        //|
     void mostrarEnrutadores(vector<string> letras);
     void minDist();         //|
+    void pushBackConexiones();
+    void vaciarCaminosCortos();
 };
 
 
@@ -44,7 +47,7 @@ public:
     int getIndex();         //Retorno Indice |
     void setIndex(int index);           //Set índice |
     string getId();           //Retorno Id |
-    void setId(char identificador);         //Set Id |
+    void setId(string identificador);         //Set Id |
     void modificarRuta(int costo, int index);       //Analizar si esta se borra |
     void setTablaEnrutamiento(TablaEnrutamiento tab);           //|
     void agregarRuta(const int posicion, const int costo);          //Agregar Ruta |
@@ -63,6 +66,6 @@ public:
 
 void menu();
 void eliminar(vector<Enrutador *> *Enrutadores, vector<string> *letras, TablaEnrutamiento *rut);
-void agregar(vector<string> *letras,vector<Enrutador *> *Enrutadores, Enrutador * punteroEnrut);
+void agregar(vector<string> *letras,vector<Enrutador *> *Enrutadores,  Enrutador & punteroEnrut);
 
 #endif // CLASES_H
