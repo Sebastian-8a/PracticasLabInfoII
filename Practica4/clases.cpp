@@ -28,7 +28,7 @@ string Enrutador::getId(){
     return id;
 }
 
-void Enrutador::setId(string identificador){
+void Enrutador::setId(const string identificador){
     id = identificador;
 }
 
@@ -222,7 +222,7 @@ void TablaEnrutamiento::vaciarCaminosCortos(){
 void menu(){
     vector <string> letras = {"A","B","C","D"};
     Enrutador A(0,"A"),B(1,"B"),C(2,"C"),D(3,"D"),A2, A3,A4,A5;
-    vector  <Enrutador * > Enrutadores= {&A,&B,&C,&D}, restantes = {&A2,&A3,&A4,&A5};
+    vector  <Enrutador * > Enrutadores= {&A,&B,&C,&D}, restantes = {&A2,&A3,&A4,&A5}, total = {&A,&B,&C,&D,&A2,&A3,&A4,&A5};
     Enrutador *& punteroEnrut = restantes.back();
 
     TablaEnrutamiento rut;
@@ -295,14 +295,6 @@ void menu(){
     }
 
 
-/*
-
-
-
-
-
-*/
-
 }
 
 void eliminar(vector<Enrutador *> *Enrutadores, vector<string> *letras, TablaEnrutamiento *rut,vector<Enrutador *> *restantes){
@@ -336,14 +328,6 @@ void eliminar(vector<Enrutador *> *Enrutadores, vector<string> *letras, TablaEnr
             }
             if (validacion == false) system("cls");
         }
-
-        /*
-                    rut.mostrarEnrutadores(letras);
-                    cout << endl;
-                    for (auto enrutador : Enrutadores ){
-                        (*enrutador).mostrarTabla(letras);
-                    }
-*/
         if (validacion != true)
             cout << "\nEnrutador no encontrado";
     }
@@ -422,3 +406,72 @@ void mostrarCosto(vector<Enrutador *> *Enrutadores){
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+void redDesdeTexto(vector<Enrutador *> *Enrutadores, vector<string> *letras,
+                   vector<Enrutador *> *restantes, vector<Enrutador *> *total) {
+    ifstream archivo;
+    vector<Enrutador *> temporales;
+    Enrutadores->clear(), letras->clear(),restantes->clear();
+    int indice = 0;
+    vector <string> lineas;
+    Enrutador *& punteroEnrut = total->back();
+    try {
+        archivo.open("Conexiones.txt", ios::in);
+    } catch (const exception &) {
+        cout << "\nNo ha sido posible abrir el archivo\n";
+        return ;
+    }
+    while(!archivo.eof()){
+        string temp, substring;
+        getline(archivo,temp,'\n');
+        punteroEnrut = total->back();
+        total->pop_back();
+        temporales.push_back(punteroEnrut);
+        substring = temp[0];
+        punteroEnrut->setId(substring), letras->push_back(substring), punteroEnrut->setIndex(indice);
+        indice++;
+        substring = temp.substr(3,temp.size()-3);
+        lineas.push_back( substring);
+    }
+    for (auto &linea: lineas){
+        punteroEnrut = *temporales.begin();
+        string substring2, substring, nombre;
+        for (int  j = 0; j < ceil(linea.size()/4 ); j++){    //Cant de bloques
+            substring2 = linea.substr(4*j,4);
+            for (auto caracter : substring2){
+                if(isdigit(caracter)) substring += caracter;       //substr asume el costo en string
+                else if(isalpha(caracter)) nombre += caracter;
+            }
+            for (auto &enrut : temporales){
+                if (enrut->getId() == nombre){
+                    punteroEnrut->agregarRuta(enrut->getIndex(),stoi(substring));
+                    vector <Enrutador *>:: iterator iteradorEnrut = (temporales).begin() + enrut->getIndex() ;
+                    temporales.erase(iteradorEnrut);
+                    Enrutadores->push_back(punteroEnrut);
+                }
+            }
+        }
+    }
+    for (auto enrut : *total){
+        restantes->push_back(enrut), total->pop_back();
+    }
+}
+
+/*
+redDesdeTexto(&Enrutadores,&letras, &restantes, &total);
+for (auto enrut : Enrutadores){
+    rut.setEnrutador(*enrut->retornarConexionesVecinas(),enrut->getIndex());
+}
+rut.minDist();
+actualizarTablas(rut,Enrutadores);
+*/

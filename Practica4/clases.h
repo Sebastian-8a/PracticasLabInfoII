@@ -2,10 +2,8 @@
 #define CLASES_H
 #include <string>
 #include "funciones.h"
-
-
-
-using namespace std;
+#include <fstream>
+#include <cmath>
 
 typedef vector<int> vect;
 
@@ -48,7 +46,7 @@ public:
     int getIndex();         //Retorno Indice |
     void setIndex(int index);           //Set índice |
     string getId();           //Retorno Id |
-    void setId(string identificador);         //Set Id |
+    void setId(const string identificador);         //Set Id |
     void modificarRuta(int costo, int index);       //Analizar si esta se borra |
     void setTablaEnrutamiento(TablaEnrutamiento tab);           //|
     void agregarRuta(const int posicion, const int costo);          //Agregar Ruta |
@@ -72,5 +70,6 @@ void agregar(vector<string> *letras,vector<Enrutador *> *Enrutadores,  Enrutador
 void elimRutaRestantes(vector<Enrutador *> *restantes);
 void setTablas(vector<Enrutador *> *Enrutadores,TablaEnrutamiento rut);
 void mostrarCosto(vector<Enrutador *> *Enrutadores);
+void redDesdeTexto(vector<Enrutador *> *Enrutadores,vector<string> *letras, vector<Enrutador *> *restantes, vector<Enrutador *> *total);
 
 #endif // CLASES_H
