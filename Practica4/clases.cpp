@@ -100,7 +100,7 @@ TablaEnrutamiento::TablaEnrutamiento(){
     cantEnrutadores = 4;
 }
 
-void TablaEnrutamiento::pushBackConexiones(){
+void TablaEnrutamiento::aggBackConexiones(){
     vect temporal(conexionesOrg.size());
     for (int i = 0 ; i < int (temporal.size()); i++){
         temporal[i] = 0;
@@ -138,6 +138,13 @@ void TablaEnrutamiento::setEnrutador(vect &conexiones,const int pos){
         conexionesOrg[pos][i] = conexiones[i];
     }
 
+}
+
+void TablaEnrutamiento::setConexion(vect &conexiones,const int pos){
+    int len = conexiones.size();
+    for (int i = 0; i < len; i++){
+        conexionesOrg[i][pos] = conexiones[i];
+    }
 }
 
 void TablaEnrutamiento::eliminarEnrutador(int pos, vector<string> &letras){
@@ -231,12 +238,9 @@ void menu(){
     //rut.mostrarEnrutadores(letras);
     //Establecer tablas de enrutamiento para cada enrutador
     rut.minDist();
-
     actualizarTablas(rut,Enrutadores);
-    rut.mostrarEnrutadores(letras);
+
     int opcion = 0;
-
-
     while (opcion != 3){
         cout << "\nIngrese una opción."
                 "\n1. Agregar enrutador."
@@ -254,19 +258,19 @@ void menu(){
             }
             punteroEnrut = restantes.back();
             agregar(&letras, &Enrutadores, *punteroEnrut);
-            rut.pushBackConexiones();
+            rut.aggBackConexiones();
             rut.setEnrutador(*punteroEnrut->retornarConexionesVecinas(),punteroEnrut->getIndex());
+            rut.setConexion(*punteroEnrut->retornarConexionesVecinas(),punteroEnrut->getIndex());
             Enrutadores.push_back(punteroEnrut);
             restantes.pop_back();
             rut.aumentarCantEnrutadores();
             rut.minDist();
             actualizarTablas(rut,Enrutadores);
             rut.mostrarEnrutadores(letras);
-            cout << endl;
-            for (auto enrutador : Enrutadores ){
-                (*enrutador).mostrarTabla(letras);
-            }
-
+            eliminar(&Enrutadores, &letras, &rut, &restantes);
+            rut.minDist();
+            actualizarTablas(rut,Enrutadores);
+            rut.mostrarEnrutadores(letras);
             break;
         case 2:
 
@@ -285,13 +289,11 @@ void menu(){
     /*
     Parte de implementación de borrar enrutador
     eliminar(&Enrutadores, &letras, &rut);
-    rut.mostrarEnrutadores(letras);
-    cout << endl;
-    for (auto enrutador : Enrutadores ){
-        (*enrutador).mostrarTabla(letras);
-    }
     rut.minDist();
     actualizarTablas(rut,Enrutadores);
+
+
+Implementación agregar un enrutador
 
 
 
@@ -315,7 +317,7 @@ void menu(){
 
 }
 
-void eliminar(vector<Enrutador *> *Enrutadores, vector<string> *letras, TablaEnrutamiento *rut){
+void eliminar(vector<Enrutador *> *Enrutadores, vector<string> *letras, TablaEnrutamiento *rut,vector<Enrutador *> *restantes){
     vector <Enrutador *>:: iterator iteradorEnrut = (*Enrutadores).begin();
     bool validacion = false ;
     string ingresado;
@@ -336,11 +338,18 @@ void eliminar(vector<Enrutador *> *Enrutadores, vector<string> *letras, TablaEnr
                     }
                     else
                         (*router).setTablaEnrutamiento(*rut);
+                    router->eliminarRuta((*enrutador).getIndex());
                 }
+                for (auto restante : *restantes){
+                    restante->eliminarRuta((*enrutador).getIndex());
+                }
+                enrutador->eliminarRuta(0);
+                restantes->push_back(enrutador);
                 break;
             }
             if (validacion == false) system("cls");
         }
+
         /*
                     rut.mostrarEnrutadores(letras);
                     cout << endl;
@@ -380,3 +389,6 @@ void agregar(vector<string> *letras, vector<Enrutador *> *Enrutadores, Enrutador
     punteroEnrut.agregarRuta((punteroEnrut.getIndex()),0);
     (letras)->push_back(id);
 }
+
+
+

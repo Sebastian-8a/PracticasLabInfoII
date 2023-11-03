@@ -25,8 +25,9 @@ public:
     void eliminarEnrutador(int pos,vector<string> &letras);        //|
     void mostrarEnrutadores(vector<string> letras);
     void minDist();         //|
-    void pushBackConexiones();
+    void aggBackConexiones();
     void vaciarCaminosCortos();
+    void setConexion(vect &enrutador,const int pos);
 };
 
 
@@ -65,7 +66,8 @@ public:
 
 
 void menu();
-void eliminar(vector<Enrutador *> *Enrutadores, vector<string> *letras, TablaEnrutamiento *rut);
+void eliminar(vector<Enrutador *> *Enrutadores, vector<string> *letras, TablaEnrutamiento *rut,vector<Enrutador *> *restantes);
 void agregar(vector<string> *letras,vector<Enrutador *> *Enrutadores,  Enrutador & punteroEnrut);
+void elimRutaRestantes(vector<Enrutador *> *restantes);
 
 #endif // CLASES_H
