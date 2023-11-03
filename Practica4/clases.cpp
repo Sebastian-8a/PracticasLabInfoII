@@ -86,7 +86,9 @@ void Enrutador::pushBackConexionesTabla(){
     tabla.push_back(0);
 }
 
-
+vect Enrutador::getTabla(){
+    return tabla;
+}
 
 TablaEnrutamiento::TablaEnrutamiento(){
     for (int j = 0; j < 4; j++){
@@ -241,11 +243,13 @@ void menu(){
     actualizarTablas(rut,Enrutadores);
 
     int opcion = 0;
-    while (opcion != 3){
+    while (opcion != 5){
         cout << "\nIngrese una opción."
                 "\n1. Agregar enrutador."
-                "\n2. Algo."
-                "\n3 Salir."
+                "\n2. Eliminar enrutador."
+                "\n3. Mostrar conexiones más cortas de toda la red."
+                "\n4. Mostrar costo entre par de enrutadores."
+                "\n5. Salir."
                 "\nOpcion: ";
         cin >> opcion;
         switch(opcion){
@@ -266,16 +270,21 @@ void menu(){
             rut.aumentarCantEnrutadores();
             rut.minDist();
             actualizarTablas(rut,Enrutadores);
-            rut.mostrarEnrutadores(letras);
+            setTablas(&Enrutadores, rut);
+            break;
+        case 2:
             eliminar(&Enrutadores, &letras, &rut, &restantes);
             rut.minDist();
             actualizarTablas(rut,Enrutadores);
-            rut.mostrarEnrutadores(letras);
-            break;
-        case 2:
-
+            setTablas(&Enrutadores, rut);
             break;
         case 3:
+            rut.mostrarEnrutadores(letras);
+            break;
+        case 4:
+            mostrarCosto(&Enrutadores);
+            break;
+        case 5:
             system("cls");
             cout << "\nHasta pronto";
             break;
@@ -286,31 +295,10 @@ void menu(){
     }
 
 
-    /*
-    Parte de implementación de borrar enrutador
-    eliminar(&Enrutadores, &letras, &rut);
-    rut.minDist();
-    actualizarTablas(rut,Enrutadores);
-
-
-Implementación agregar un enrutador
+/*
 
 
 
-    rut.mostrarEnrutadores(letras);
-
-
-    rut.mostrarEnrutadores(letras);
-    rut.eliminarEnrutador(B.getIndex());
-    letras.erase(letras.begin()+1);
-    rut.mostrarEnrutadores(letras);
-
-
-
-    A.mostrarConexionesVecinas(letras);
-    A.eliminarRuta(1);
-    letras.erase(letras.begin()+1);
-    A.mostrarConexionesVecinas(letras);
 
 
 */
@@ -321,7 +309,6 @@ void eliminar(vector<Enrutador *> *Enrutadores, vector<string> *letras, TablaEnr
     vector <Enrutador *>:: iterator iteradorEnrut = (*Enrutadores).begin();
     bool validacion = false ;
     string ingresado;
-    (*rut).mostrarEnrutadores(*letras);
     while (validacion != true){
         cout << "\nIngrese el nombre del enrutador que desea eliminar: ";
         cin >> ingresado;
@@ -390,5 +377,48 @@ void agregar(vector<string> *letras, vector<Enrutador *> *Enrutadores, Enrutador
     (letras)->push_back(id);
 }
 
+void setTablas(vector<Enrutador *> *Enrutadores, TablaEnrutamiento rut){
+    for (auto enrut : *Enrutadores){
+        enrut->setTablaEnrutamiento(rut);
+    }
+}
 
+void mostrarCosto(vector<Enrutador *> *Enrutadores){
+    string idOrg, idDest;
+    bool validacion = false;
+    while (validacion != true){
+        cout << "\nIngrese el nombre del enrutador origen: ";
+        cin >> idOrg;
+        for (auto enrut : *Enrutadores){
+            if(enrut->getId() == idOrg){
+                while (validacion != true) {
+                    cout << "\nIngrese el nombre del enrutador destino: ";
+                    cin >> idDest;
+                    for (auto enrutDest : *Enrutadores){
+                        if (enrutDest->getId() == idDest){
+                            try {
+                                cout << "\nEl costo de " <<enrut->getId()<< " a "<<
+                                    enrutDest->getId() << " es: "<<
+                                    (enrut->getTabla()).at(enrutDest->getIndex())<< endl;
+                                    validacion = true;
+                            } catch (const exception &) {
+                                cout << "\nValor fuera de rango, no se cuenta con la información";
+                            }
+                            break;
+                        }
+                    }
+                    if (validacion != true){
+                        system("cls");
+                        cout << "\nNo se ha encontrado un enrutador con ese identificador";
+                    }
+                }
+                break;
+            }
+        }
+        if (validacion != true){
+            system("cls");
+            cout << "\nNo se ha encontrado un enrutador con ese identificador";
+        }
 
+    }
+}

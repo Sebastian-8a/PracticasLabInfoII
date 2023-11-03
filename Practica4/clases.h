@@ -57,6 +57,7 @@ public:
     void mostrarTabla(vector<string> letras);
     vect * retornarConexionesVecinas();         //retornar dirección de memoria donde se ubican las conexiones
     void pushBackConexionesTabla();
+    vect getTabla();
 };
 
 
@@ -69,5 +70,7 @@ void menu();
 void eliminar(vector<Enrutador *> *Enrutadores, vector<string> *letras, TablaEnrutamiento *rut,vector<Enrutador *> *restantes);
 void agregar(vector<string> *letras,vector<Enrutador *> *Enrutadores,  Enrutador & punteroEnrut);
 void elimRutaRestantes(vector<Enrutador *> *restantes);
+void setTablas(vector<Enrutador *> *Enrutadores,TablaEnrutamiento rut);
+void mostrarCosto(vector<Enrutador *> *Enrutadores);
 
 #endif // CLASES_H
