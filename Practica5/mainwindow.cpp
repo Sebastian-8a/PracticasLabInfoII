@@ -5,28 +5,28 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+    ui->setupUi(this);      //Configurar la escena
 
-
-    escena  =  new QGraphicsScene();
+    escena  =  new QGraphicsScene();    //Definir Escena para montar la "obra"
 
     elipse = new QGraphicsEllipseItem(0,0,100,100);         //x, y, ancho y alto
     elipse->setStartAngle(90*16);       //cada ángulo tiene 16 porciones, set una porción de la figura
     elipse->setSpanAngle(270*16);       //cada ángulo tiene 16 porciones, set una porción de la figura
-
     QPen lapiz(Qt::darkRed, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);        //contorno de objeto -> color, grosor, propiedades de contorno
     elipse->setPen(lapiz);      //asignarle el contorno a la elipse
-
     QBrush fondo("#2E86C1", Qt::SolidPattern);          //color a la figura     Código del color, estilo del color
     elipse->setBrush(fondo);        //asignar color a la figura
 
     escena->addItem(elipse);            //agregar elemento a la escena
 
-    ui->graphicsView->setScene(escena);     //agregar la escena a la vista gráfica
+    ui->Grafica->setScene(escena);     //agregar la escena a la vista gráfica
 
     tiempo = new QTimer();
-    connect(tiempo, SIGNAL(timeout()), this, SLOT(moverObjeto()));       //slot: consecuencia después de haber activado el timer
-    tiempo->start(50);     //cada 100 ms me va a llamar mover objeto
+    connect(tiempo, SIGNAL(timeout()), this, SLOT(moverObjeto()));       //slot: cons|ecuencia después de haber activado el timer
+    tiempo->start(50);     //cada 100 ms me va a llamar mover objeto)
+
+
+
 }
 
 MainWindow::~MainWindow()

@@ -5,7 +5,7 @@
 #include <QGraphicsScene>       //agergar escena de gráficos
 #include <QGraphicsEllipseItem>
 #include <QTimer>           //reloj para dar movimiento automático
-
+#include <QKeyEvent> // Captura de teclas
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,6 +26,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+
     QGraphicsScene *escena;
     QGraphicsEllipseItem *elipse;
     QTimer *tiempo;
