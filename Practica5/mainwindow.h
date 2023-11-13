@@ -1,9 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include "elemento.h"
 
 #include <QMainWindow>
-#include <QGraphicsScene>       //agergar escena de gráficos
-#include <QGraphicsEllipseItem>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 #include <QTimer>           //reloj para dar movimiento automático
 #include <QKeyEvent> // Captura de teclas
 
@@ -28,7 +29,8 @@ private:
     Ui::MainWindow *ui;
 
     QGraphicsScene *escena;
-    QGraphicsEllipseItem *elipse;
+    MiElipse *elipse;
+    QGraphicsView *vista;
     QTimer *tiempo;
 
 

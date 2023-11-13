@@ -1,11 +1,13 @@
 #ifndef ELEMENTO_H
 #define ELEMENTO_H
 
+#include <QGraphicsItem>
+#include <QDebug>
 
-class Elemento
+class MiElipse: public QGraphicsEllipseItem
 {
 public:
-    Elemento();
+    void keyPressEvent(QKeyEvent * event);      //evento de presionar tecla
 };
 
 #endif // ELEMENTO_H

@@ -1,6 +1,8 @@
 #include "elemento.h"
 
-Elemento::Elemento()
-{
 
+
+void MiElipse::keyPressEvent(QKeyEvent *event)
+{
+    qDebug() << " Presionaste una tecla ";
 }
