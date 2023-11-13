@@ -6,7 +6,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QTimer>           //reloj para dar movimiento automático
-#include <QKeyEvent> // Captura de teclas
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

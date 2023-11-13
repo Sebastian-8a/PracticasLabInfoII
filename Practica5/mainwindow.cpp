@@ -25,8 +25,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     escena->addItem(elipse);
 
-    vista = new QGraphicsView();        //decirle a quién mirar, en un punto puede mirar una escena y en otro punto puede mirar otra escena
 
+    vista = new QGraphicsView();        //decirle a quién mirar, en un punto puede mirar una escena y en otro punto puede mirar otra escena
+    vista->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    vista->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     vista->setScene(escena);
 
     vista->show();              //mostrar la vista

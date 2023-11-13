@@ -3,6 +3,8 @@
 
 #include <QGraphicsItem>
 #include <QDebug>
+#include <QKeyEvent> // Captura de teclas
+#include "bala.h"
 
 class MiElipse: public QGraphicsEllipseItem
 {
